@@ -6,6 +6,8 @@ import useBoards from '../hooks/useBoards'
 
 import BoardList from '../components/BoardList'
 
+import Kanban from './Kanban'
+
 import {v4 as uuidv4} from 'uuid';
 
 const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
@@ -44,7 +46,7 @@ const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
                 </Route>
 
                 <Route path='/board/:boardId'>
-                    <h4>This will be Kanban</h4>
+                    <Kanban userId={userId} />
                 </Route>
 
             </BrowserRouter>
