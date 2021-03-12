@@ -5,11 +5,18 @@ import {DragDropContext} from 'react-beautiful-dnd'
 import {db} from '../firebase/fbConfig'
 import {useParams} from 'react-router-dom'
 import Column from '../components/Column'
+import Modal from '../components/Modal'
 import useKanbanData from '../hooks/useKanbanData'
+import {Add} from '../components/Icons'
+
+import AddTask from '../screens/AddTask'
+
+
 
 const Kanban = ({userId}) => {
 
     const {boardId} = useParams()
+    const [modal, setModal] = useState(false)
     const {initialData, setInitialData} = useKanbanData(userId, boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['must', 'should', 'could']
@@ -86,12 +93,20 @@ const Kanban = ({userId}) => {
 		<DragDropContext onDragEnd={onDragEnd}>
             {initialData ? 
                 (
+                <>
+                    <Modal modal={modal} setModal={setModal} >
+                        <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)}/>
+                    </Modal>
+                    
                     <div className="py-20 px-28 ">
                     	<div className='flex justify-end items-center mb-5'>
                            <div className="mr-3">
                                 <span className='text-gray-500'>Filters: </span>
                                 {filters.map(f => <button key={f} className={`px-3 capitalize ${filter === f ? 'bg-pink-300' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</button>)}
                                 {filter ? <button className='px-3' onClick={() => setFilter(null)}>All</button> : <button className="mx-3"></button>}
+                            </div>
+                            <div onClick={()=>setModal(true)}>
+                                <Add />
                             </div>
                     	</div>
                         <div className="flex mb-7 items-start">
@@ -104,6 +119,7 @@ const Kanban = ({userId}) => {
                         </div>
                     </div>
 
+                    </>
                 )
                 :
                 <h4>Loading Tasks</h4>

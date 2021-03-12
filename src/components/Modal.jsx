@@ -1,18 +1,16 @@
 
 
 import {Dialog} from "@reach/dialog"
-import {useState} from 'react'
+import "@reach/dialog/styles.css";
 
-const Modal = () => {
-	const [modal, setModal] = useState(false)
-
-	const open = () => setModal(true)
-	const close = () => setModal(false)
+const Modal = ({modal, setModal, children}) => {
+	
 
 	return (
-		<div>
-			
-		</div>
+			<Dialog isOpen={modal} onDismiss={()=>setModal(false)} aria-label='content'>
+				<button onClick={()=>setModal(false)}>Close</button>
+				{children}
+			</Dialog>
 	)
 }
 
