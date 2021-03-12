@@ -94,7 +94,7 @@ const Kanban = ({userId}) => {
             {initialData ? 
                 (
                 <>
-                    <Modal modal={modal} setModal={setModal} >
+                    <Modal modal={modal} setModal={setModal} ariaText='Add a new Modal'>
                         <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)}/>
                     </Modal>
                     
