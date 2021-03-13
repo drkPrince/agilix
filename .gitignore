@@ -11,6 +11,8 @@
 # production
 /build
 
+Circular.ttf
+
 # misc
 .DS_Store
 .env.local

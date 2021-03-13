@@ -98,7 +98,7 @@ const Kanban = ({userId}) => {
                         <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)}/>
                     </Modal>
                     
-                    <div className="py-20 px-28 ">
+                    <div className="py-20 px-28 bg-gradient-to-r from-green-300 to-blue-400 min-h-screen">
                     	<div className='flex justify-end items-center mb-5'>
                            <div className="mr-3">
                                 <span className='text-gray-500'>Filters: </span>

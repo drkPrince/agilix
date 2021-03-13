@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Bin, Cross, Edit, Save} from '../components/Icons'
+import {Bin, Save} from '../components/Icons'
 import Checklist from '../components/Checklist'
 import {db, firebase} from '../firebase/fbConfig'
 import {extractPriority} from '../utils'
@@ -77,7 +77,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 					</div>
 				
 					: <div className="mt-8">
-						<input type="text" name='task' placeholder='Add a sub task' onKeyPress={addTodo} className='mt-4' className='border-b border-gray-300 outline-none my-2' />
+						<input type="text" name='task' placeholder='Add a sub task' onKeyPress={addTodo} className='border-b border-gray-300 outline-none my-2' />
 					</div>
 				}
 

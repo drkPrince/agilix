@@ -6,8 +6,6 @@ import {firebase, db} from '../firebase/fbConfig'
 import {useState} from 'react'
 
 
-
-
 const Checklist = ({todos, taskId, boardId, userId}) => {
 
 	const [todoList, setList] = useState(todos)

@@ -1,0 +1,35 @@
+@font-face{
+	font-family: 'Circular';
+	src: url('./Circular.ttf');
+}
+
+body{
+	font-family: 'Circular';
+}
+
+progress {
+	height: 4px;
+	border-radius: 3px; 
+}
+
+progress::-webkit-progress-bar {
+	background-color: slategray;
+	border-radius: 7px;
+}
+
+progress::-webkit-progress-value {
+	background-color: darkslateblue;
+	border-radius: 2px;
+}
+
+progress::-moz-progress-bar {
+	/* style rules */
+}
+
+
+.card {
+	background: rgba( 255, 255, 255, 0.10 );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	/*backdrop-filter: blur( 4.5px );*/
+	-webkit-backdrop-filter: blur( 4.5px );
+}
