@@ -46,6 +46,8 @@ const useKanban = (userId, boardId) => {
         }
      }, [tasks, columns])
 
+     console.log(final)
+
 
     return {initialData: final, setInitialData: setFinal}
 

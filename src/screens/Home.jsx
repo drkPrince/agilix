@@ -22,7 +22,9 @@ const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
             .doc(uid)
             .set({name: e.target.elements.boardName.value})
 
+
         const columnsObject = [{id: 'backlog', title: 'Backlog', taskIds: ['welcome']}, {id: 'inProgress', title: 'In Progress', taskIds: []}, {id: 'ready', title: 'Ready', taskIds: []}, {id: 'done', title: 'Done', taskIds: []}]    
+
 
         columnsObject.forEach(c => {
             db.collection(`users/${userId}/boards`)
@@ -31,6 +33,7 @@ const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
                 .doc(c.id)
                 .set({title: c.title, taskIds: c.taskIds})    
         })
+
 
         db.collection(`users/${userId}/boards`)
             .doc(uid)

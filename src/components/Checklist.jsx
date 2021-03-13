@@ -65,7 +65,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 						                    	<div className='mr-1' onClick={(e) => checkMark(e, t)} >
 						                    		{t.done ? < Checked/> : <Unchecked />}
 						                    	</div>
-						                    	<h4 className='ml-2'>{t.task}</h4>
+						                    	<h4 className={`ml-2 ${t.done ? 'line-through text-gray-400' : ''}`}>{t.task}</h4>
 						                    </div>
 											<div onClick={() => deleteSubTask(t.task)}>
 												<Cross />

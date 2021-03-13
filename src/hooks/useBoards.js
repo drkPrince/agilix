@@ -7,15 +7,21 @@ const useBoards = (userId) => {
     useEffect(() => {
         return db.collection(`users`).doc(userId).get()
             .then(doc => {
-                if(doc.exists){
-                    return db.collection(`users/${doc.id}/boards`).onSnapshot(snap => {
-                        const documents = []
-                        snap.forEach(doc => documents.push({id: doc.id, ...doc.data()}))
-                        console.log(documents)
-                        setBoards(documents)
-                    })
+                try {
+                    if(doc.exists){
+                        return db.collection(`users/${doc.id}/boards`).onSnapshot(snap => {
+                            const documents = []
+                            snap.forEach(doc => documents.push({id: doc.id, ...doc.data()}))
+                            console.log(documents)
+                            setBoards(documents)
+                        })
+                    }
+                    else return
                 }
-                else return
+
+                catch(e) {
+                    console.log(e)
+                }
             })
         }, [userId]) 
 
