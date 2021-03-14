@@ -1,21 +1,18 @@
+import { Dialog } from "@reach/dialog"
+import { Cross } from './Icons'
 
+const Modal = ({ modal, setModal, children, ariaText }) => {
 
-import {Dialog} from "@reach/dialog"
-import "@reach/dialog/styles.css"
-import {Cross} from './Icons'
-
-const Modal = ({modal, setModal, children, ariaText}) => {
-
-	return (
-			<Dialog isOpen={modal} onDismiss={()=>setModal(false)} aria-label={ariaText}>
+    return (
+        <Dialog isOpen={modal} onDismiss={()=>setModal(false)} aria-label={ariaText}>
 				<div className='flex justify-end'>
-					<button onClick={()=>setModal(false)} >
+					<div onClick={()=>setModal(false)} >
 						<Cross />
-					</button>
+					</div>
 				</div>
 				{children}
 			</Dialog>
-	)
+    )
 }
 
 export default Modal

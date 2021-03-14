@@ -7,7 +7,7 @@ import {useParams} from 'react-router-dom'
 import Column from '../components/Column'
 import Modal from '../components/Modal'
 import useKanbanData from '../hooks/useKanbanData'
-import {Add, Home} from '../components/Icons'
+import {Add, Home, Github} from '../components/Icons'
 import {Link} from 'react-router-dom'
 
 import AddTask from '../screens/AddTask'
@@ -18,7 +18,7 @@ const Kanban = ({userId}) => {
 
     const {boardId} = useParams()
     const [modal, setModal] = useState(false)
-    const {initialData, setInitialData} = useKanbanData(userId, boardId)
+    const {initialData, setInitialData, boardName} = useKanbanData(userId, boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['must', 'should', 'could']
 
@@ -99,25 +99,34 @@ const Kanban = ({userId}) => {
                         <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)}/>
                     </Modal>
                     
-                    <div className="py-20 px-28 h-screen">
-                        <h4></h4>
-                    	<div className='flex justify-end items-center mb-5 space-x-6' style={{height: '10%'}}>
-                            <button>Github</button>
-                            <div className="flex">
-                                <h3 className='text-gray-500 mr-2'>Filters: </h3>
-                                    <div className='space-x-3'>
-                                        {filters.map(f => <button key={f} className={` capitalize ${filter === f ? 'bg-pink-300' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</button>)}
-                                        {filter ? <button className='' onClick={() => setFilter(null)}>All</button> : null}
-                                    </div>
-                            </div>
-                            <div onClick={()=>setModal(true)}>
-                                <Add />
-                            </div>
-                            <div>
-                                <Link to='/'><Home /></Link>
-                            </div>
-                    	</div>
-                        <div className="flex items-start" style={{height: '90%'}}>
+
+                    <div className="pt-16 pb-10 px-20 h-screen space-y-4">
+
+                        <div className='flex justify-between items-baseline' style={{height: '10%'}}>
+                            <h4 className='text-xl justify-self-start text-gray-900'>{boardName}</h4>
+                        	<div className='flex justify-end items-center mb-5 space-x-10' >
+                                <Link to='/' className='flex items-center text-gray-600 hover:text-gray-800 cursor-pointer'>
+                                    <Home />
+                                    <span>Home</span>
+                                </Link>
+                                <div className='flex items-center text-gray-600 hover:text-gray-800'>
+                                    <Github />
+                                    <a href='http://github.com/drkPrince/agileX' target='blank'>Github</a>
+                                </div>
+                                <div className="flex items-center">
+                                    <h3 className='text-gray-500 mr-2'>Show: </h3>
+                                        <div className='space-x-3 text-gray-600 flex'>
+                                            {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-pink-300' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
+                                            {filter ? <div className='px-2 py-1 cursor-pointer hover:text-gray-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
+                                        </div>
+                                </div>
+                                <div className='bg-gradient-to-tr from-green-100 via-green-200 to-green-300 hover:bg-green-200 text-green-900 rounded-full p-1' onClick={()=>setModal(true)}>
+                                    <Add />
+                                </div>
+                        	</div>
+                        </div>
+
+                        <div className="flex items-start space-x-8" style={{height: '90%'}}>
                             {initialData.columnOrder.map(col => {
                                 const column = initialData.columns[col]
                                 const tasks = column.taskIds.map(t => t)

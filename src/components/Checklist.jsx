@@ -3,12 +3,13 @@
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import {Checked, Unchecked, Cross, Dragger} from './Icons'
 import {firebase, db} from '../firebase/fbConfig'
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 
 
 const Checklist = ({todos, taskId, boardId, userId}) => {
 
 	const [todoList, setList] = useState(todos)
+	const newTaskRef = useRef(null)
 
 	const addSubTask = (e) => {
 		if(e.key === 'Enter'){
@@ -16,6 +17,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 			db.collection(`users/${userId}/boards/${boardId}/tasks`)
 				.doc(taskId)
 				.update({todos: firebase.firestore.FieldValue.arrayUnion({task: e.target.value, done: false})})
+			newTaskRef.current.value = ''	
 		}
 	}
 
@@ -82,7 +84,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 					}
 				</Droppable>
 			</DragDropContext>
-			<input type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-6 w-full' />	
+			<input ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-6 w-full' />	
 		</div>
 	)
 }

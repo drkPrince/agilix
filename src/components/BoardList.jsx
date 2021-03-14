@@ -1,4 +1,7 @@
+
 import { Link } from 'react-router-dom'
+
+console.log('exp')
 
 const BoardList = ({ loginWithGoogle, logOut, boards, addNewBoard, isAnon, name }) => {
     return (

@@ -13,7 +13,7 @@ progress {
 }
 
 progress::-webkit-progress-bar {
-	background-color: slategray;
+	background-color: rgba( 0, 0, 0, 0.15 );
 	border-radius: 7px;
 }
 
@@ -29,7 +29,50 @@ progress::-moz-progress-bar {
 
 .card {
 	background: rgba( 255, 255, 255, 0.10 );
-	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 	/*backdrop-filter: blur( 4.5px );*/
 	-webkit-backdrop-filter: blur( 4.5px );
 }
+
+
+
+.yo::-webkit-scrollbar {
+  width: 10px;               /* width of the entire scrollbar */
+}
+
+.yo::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
+.yo::-webkit-scrollbar-thumb {
+  background-color: rgba( 0, 0, 0, 0.15 ) ;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid white;  /* creates padding around scroll thumb */
+}
+
+
+
+/* Reach UI Modal */
+
+:root {
+  --reach-dialog: 1;
+}
+
+[data-reach-dialog-overlay] {
+	background: hsla(0, 0%, 0%, 0.33);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+}
+
+[data-reach-dialog-content] {
+	width: 75vw;
+	margin: 10vh auto;
+	background: white;
+	padding: 2rem;
+	outline: none;
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+

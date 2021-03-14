@@ -28,27 +28,30 @@ const AddTask = ({boardId, userId, close}) =>
 
 
 	return (
-		<div className=''>
+		<div className='p-12'>
 			<form onSubmit={addTask} className=''>
-				<h4 className='text-2xl'>Add a New Task</h4>
-				<div className='my-8'>
-					<label htmlFor="newTaskTitle" className='block'>Title:</label>
-		            <input type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-full text-2xl outline-none' />
-				</div>
+				<h4 className='text text-gray-700'>Add a New Task</h4>
 
-
-				<div className='my-8'>
-		            <label htmlFor="priority" className='block'>Priority:</label>
-		            <select name="priority" className='px-1 py-2'>
-		            	<option value="must" className=''>Must</option>
-		            	<option value="should" className=''>Should</option>
-		            	<option value="could" className=''>Could</option>
-		            </select>
+				<div className="grid mt-12 grid-cols-12">
+					<div className='col-span-8'>
+						<label htmlFor="newTaskTitle" className='block'>Title:</label>
+						<input type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-2xl outline-none' />
+					</div>
+					
+					
+					<div className='col-span-4'>
+			            <label htmlFor="priority" className='block'>Priority:</label>
+			            <select name="priority" className='px-1 py-2'>
+			            	<option value="must" className=''>Must</option>
+			            	<option value="should" className=''>Should</option>
+			            	<option value="could" className=''>Could</option>
+			            </select>
+					</div>
 				</div>
 
 				<div className="my-8">
-					<label htmlFor="newTaskDescription" className='block'>Description:</label>
-					<textarea name="desc" className='border border-gray-300 w-full px-4 py-3 outline-none h-auto' defaultValue={description} onChange={(e)=>setDescription(e.target.value)} />
+					<label htmlFor="newTaskDescription" className='block'>Description (optional):</label>
+					<textarea name="desc" className='border border-gray-300 w-full px-4 py-3 outline-none h-32' defaultValue={description} onChange={(e)=>setDescription(e.target.value)} />
 				</div>
 
 	            <button className='bg-purple-500 text-white px-2 py-1 rounded-sm'>Add Task</button>

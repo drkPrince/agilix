@@ -12,7 +12,6 @@ const useBoards = (userId) => {
                         return db.collection(`users/${doc.id}/boards`).onSnapshot(snap => {
                             const documents = []
                             snap.forEach(doc => documents.push({id: doc.id, ...doc.data()}))
-                            console.log(documents)
                             setBoards(documents)
                         })
                     }

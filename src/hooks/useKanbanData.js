@@ -1,11 +1,11 @@
-
-import {useState, useEffect} from 'react'
-import {db} from '../firebase/fbConfig'
+import { useState, useEffect } from 'react'
+import { db } from '../firebase/fbConfig'
 
 const useKanban = (userId, boardId) => {
     const [tasks, setTasks] = useState(null)
     const [columns, setColumns] = useState(null)
     const [final, setFinal] = useState(null)
+    const [boardName, setBoardName] = useState('')
 
 
     useEffect(() => {
@@ -13,27 +13,35 @@ const useKanban = (userId, boardId) => {
             .onSnapshot(snap => {
                 const documents = []
                 snap.forEach(d => {
-                    documents.push({id: d.id, ...d.data()})
+                    documents.push({ id: d.id, ...d.data() })
                 })
                 setTasks(documents)
             })
-        }, [userId, boardId]) 
+    }, [userId, boardId])
 
 
-     useEffect(() => {
+    useEffect(() => {
+        return db.collection(`users/${userId}/boards`)
+            .doc(boardId)
+            .get()
+            .then(d => setBoardName(d.data().name))
+    }, [])
+
+
+    useEffect(() => {
         return db.collection(`users/${userId}/boards/${boardId}/columns`)
             .onSnapshot(snap => {
-            const documents = []
-            snap.forEach(d => {
-                documents.push({id: d.id, ...d.data()})
+                const documents = []
+                snap.forEach(d => {
+                    documents.push({ id: d.id, ...d.data() })
+                })
+                setColumns(documents)
             })
-            setColumns(documents)
-        })
-       }, [userId, boardId]) 
+    }, [userId, boardId])
 
 
-     useEffect(() => {
-        if(tasks && columns){
+    useEffect(() => {
+        if (tasks && columns) {
             const finalObject = {}
             finalObject.columnOrder = ['backlog', 'ready', 'inProgress', 'done']
             finalObject.columns = {}
@@ -44,12 +52,10 @@ const useKanban = (userId, boardId) => {
 
             setFinal(finalObject)
         }
-     }, [tasks, columns])
-
-     console.log(final)
+    }, [tasks, columns])
 
 
-    return {initialData: final, setInitialData: setFinal}
+    return { initialData: final, setInitialData: setFinal, boardName }
 
 }
 
