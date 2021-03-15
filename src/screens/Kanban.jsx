@@ -2,7 +2,7 @@
 
 import {useState} from 'react'
 import {DragDropContext} from 'react-beautiful-dnd'
-import {db} from '../firebase/fbConfig'
+import {db, firebase} from '../firebase/fbConfig'
 import {useParams} from 'react-router-dom'
 import Column from '../components/Column'
 import Modal from '../components/Modal'
@@ -19,6 +19,7 @@ const Kanban = ({userId}) => {
     const {boardId} = useParams()
     const [modal, setModal] = useState(false)
     const {initialData, setInitialData, boardName} = useKanbanData(userId, boardId)
+    console.log(initialData)
     const [filter, setFilter] = useState(null)
     const filters = ['must', 'should', 'could']
 
@@ -90,13 +91,31 @@ const Kanban = ({userId}) => {
             .update({taskIds: finishTaskIDs})
     }
 
+
+    const addCol = (e) => {
+        console.log('addCol') 
+        e.preventDefault()
+        const newColumnName = e.target.elements.newCol.value   
+        db.collection(`users/${userId}/boards/${boardId}/columns`)
+            .doc(newColumnName.toLowerCase())
+            .set({title: newColumnName, taskIds: []})
+
+        db.collection(`users/${userId}/boards/${boardId}/columns`)
+            .doc('columnOrder')
+            .update({order: firebase.firestore.FieldValue.arrayUnion(newColumnName.toLowerCase())})
+
+        e.target.elements.newCol.value = ''    
+    }
+
+
+
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
             {initialData ? 
                 (
                 <>
                     <Modal modal={modal} setModal={setModal} ariaText='Add a new Modal'>
-                        <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)}/>
+                        <AddTask boardId={boardId} userId={userId} close={()=>setModal(false)} />
                     </Modal>
                     
 
@@ -123,6 +142,7 @@ const Kanban = ({userId}) => {
                                 <div className='bg-gradient-to-tr from-green-100 via-green-200 to-green-300 hover:bg-green-200 text-green-900 rounded-full p-1' onClick={()=>setModal(true)}>
                                     <Add />
                                 </div>
+                                
                         	</div>
                         </div>
 
@@ -132,6 +152,11 @@ const Kanban = ({userId}) => {
                                 const tasks = column.taskIds.map(t => t)
                                 return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} />
                             })}
+                            <div>
+                                <form onSubmit={addCol}>
+                                    <input type="text" name='newCol' placeholder='Add a new Column' />
+                                </form>
+                            </div>
 
                         </div>
                     </div>

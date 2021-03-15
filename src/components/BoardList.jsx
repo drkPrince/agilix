@@ -1,8 +1,6 @@
 
 import { Link } from 'react-router-dom'
 
-console.log('exp')
-
 const BoardList = ({ loginWithGoogle, logOut, boards, addNewBoard, isAnon, name }) => {
     return (
         <div className='bg-gray-100 mx-12 my-20 p-4'>

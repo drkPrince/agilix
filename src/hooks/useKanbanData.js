@@ -25,7 +25,7 @@ const useKanban = (userId, boardId) => {
             .doc(boardId)
             .get()
             .then(d => setBoardName(d.data().name))
-    }, [])
+    }, [userId, boardId])
 
 
     useEffect(() => {
@@ -43,12 +43,16 @@ const useKanban = (userId, boardId) => {
     useEffect(() => {
         if (tasks && columns) {
             const finalObject = {}
-            finalObject.columnOrder = ['backlog', 'ready', 'inProgress', 'done']
+
+            const co = columns.find(c => c.id === 'columnOrder')
+            const cols = columns.filter(c => c.id !== 'columnOrder')
+            
+            finalObject.columnOrder = co.order
             finalObject.columns = {}
             finalObject.tasks = {}
 
             tasks.forEach(t => finalObject.tasks[t.id] = t)
-            columns.forEach(c => finalObject.columns[c.id] = c)
+            cols.forEach(c => finalObject.columns[c.id] = c)
 
             setFinal(finalObject)
         }

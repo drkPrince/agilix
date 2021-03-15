@@ -58,10 +58,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 				<div className="grid grid-cols-8 gap-x-16">
 
 {/* First column */}
-
 					<div className="col-span-6">
-						
-
 						{taskDetails.todos.length >= 1 ? 
 							<div className="mt-12">
 								<label className='text-gray-500 block'>Checklist:</label>
@@ -73,17 +70,12 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 								<input ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addTodo} className='border-b border-gray-300 outline-none my-2 w-full' />	
 							</div>
 						}
-						
-
-						
 					</div>
+
+
+					
 {/* Second column */}
-
 					<div className="col-span-2 mt-8">
-
-						
-						
-
 						<div className="mt-8">
 							<label className='text-gray-500 block' htmlFor="title">Priority:</label>
 							<div className="flex">
@@ -109,7 +101,6 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 							<label className='text-gray-500 block' htmlFor="desc" >Date Added:</label>
 							<h4 className='tracking-wide'>{new Date(taskDetails.dateAdded.seconds * 1000).toLocaleString()}</h4>
 						</div> : null}
-						
 					</div>
 				</div>
 
