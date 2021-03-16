@@ -5,6 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.1.1",
     "@reach/dialog": "^0.13.2",
+    "@reach/menu-button": "^0.13.2",
     "@tailwindcss/typography": "^0.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

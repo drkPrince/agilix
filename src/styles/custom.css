@@ -35,15 +35,15 @@ progress::-moz-progress-bar {
 
 
 
-.yo::-webkit-scrollbar {
+.fancyNav::-webkit-scrollbar {
   width: 10px;               /* width of the entire scrollbar */
 }
 
-.yo::-webkit-scrollbar-track {
+.fancyNav::-webkit-scrollbar-track {
   background: white;        /* color of the tracking area */
 }
 
-.yo::-webkit-scrollbar-thumb {
+.fancyNav::-webkit-scrollbar-thumb {
   background-color: rgba( 0, 0, 0, 0.15 ) ;    /* color of the scroll thumb */
   border-radius: 20px;       /* roundness of the scroll thumb */
   border: 3px solid white;  /* creates padding around scroll thumb */

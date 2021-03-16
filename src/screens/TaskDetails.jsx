@@ -28,7 +28,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 		db.collection(`users/${userId}/boards/${boardId}/columns`)	
 			.doc(columnDetails.id)
 			.update({taskIds: firebase.firestore.FieldValue.arrayRemove(taskDetails.id)})
-		db.collection(`board/${boardId}/tasks`)
+		db.collection(`users/${userId}/boards/${boardId}/tasks`)
 			.doc(taskDetails.id)
 			.delete()
 	}
