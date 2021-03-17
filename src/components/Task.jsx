@@ -33,7 +33,7 @@ const Task = ({ allData, id, index, boardId, userId, columnDetails, filterBy }) 
 
 	        <Draggable draggableId={id} index={index}>
 	            {(provided, snapshot) => 
-	                <div onClick={()=>setModal(true)} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`shadow-md transition-colors duration-700 hover:shadow-xl mb-4 rounded px-2 py-3 ${snapshot.isDragging ? 'bg-gradient-to-r from-red-100 to-blue-100 text-gray-800' : 'bg-white text-gray-800'}`}>
+	                <div onClick={()=>setModal(true)} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} className={`w-full shadow-md transition-colors duration-700 hover:shadow-xl mb-4 rounded px-2 py-3 ${snapshot.isDragging ? 'bg-gradient-to-r from-red-100 to-blue-100 text-gray-800' : 'bg-white text-gray-800'}`}>
                     	<div>
                     		<h4 className=''>{theTask.title}</h4>
                     		<div className='flex mt-2 space-x-4'>

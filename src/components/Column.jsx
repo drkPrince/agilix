@@ -1,11 +1,9 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import Task from './Task'
 
-import {More, Bin} from './Icons'
+import {Bin} from './Icons'
 
 import {db, firebase} from '../firebase/fbConfig'
-
-
 
 
 const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) => {
@@ -39,8 +37,8 @@ const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) =>
     return (
         <Draggable draggableId={column.id} index={index} key={column.id}>
             {provided => 
-                <div {...provided.draggableProps} ref={provided.innerRef} className='rounded w-full max-h-full overflow-y-auto fancyNav'>
-                    <div className=' ' style={{'minHeight': '20vh',  'backgroundColor': '#f2f2f2'}}>
+                <div {...provided.draggableProps} ref={provided.innerRef} className='rounded mx-6 max-h-full overflow-y-auto fancyNav min-w-max' >
+                    <div className='w-72' style={{'minHeight': '20vh',  'backgroundColor': '#f2f2f2'}} >
                         <div {...provided.dragHandleProps} className='bg-gradient-to-r from-indigo-400 to-purple-400 flex items-center justify-between px-4 py-1 sticky top-0'>
                             <div className='flex items-center'>
                                 <h1 className='text-xl block text-indigo-50 mr-5'>{column.title}</h1>
@@ -66,3 +64,13 @@ const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) =>
 }
 
 export default Column
+
+
+
+
+
+/* 
+
+
+
+ */

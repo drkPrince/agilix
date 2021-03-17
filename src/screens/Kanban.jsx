@@ -1,16 +1,20 @@
 
 
 import {useState} from 'react'
-import {DragDropContext, Droppable} from 'react-beautiful-dnd'
-import {db, firebase} from '../firebase/fbConfig'
 import {useParams} from 'react-router-dom'
+import {DragDropContext, Droppable} from 'react-beautiful-dnd'
+
+import {db, firebase} from '../firebase/fbConfig'
+
 import Column from '../components/Column'
 import Modal from '../components/Modal'
-import useKanbanData from '../hooks/useKanbanData'
-import {Add, Home, Github} from '../components/Icons'
-import {Link} from 'react-router-dom'
-
 import AddTask from '../screens/AddTask'
+import {Add, Github} from '../components/Icons'
+
+import useKanbanData from '../hooks/useKanbanData'
+
+
+
 
 
 const Kanban = ({userId}) => {
@@ -99,7 +103,6 @@ const Kanban = ({userId}) => {
                 .doc('columnOrder')
                 .update({order: newColumnOrder})
         }
-
     }
 
 
@@ -117,6 +120,21 @@ const Kanban = ({userId}) => {
         e.target.elements.newCol.value = ''    
     }
 
+    const debounce = (callback, wait) => {
+        let timeoutId = null;
+        return (...args) => {
+            window.clearTimeout(timeoutId);
+            timeoutId = window.setTimeout(() => {
+                callback.apply(null, args);
+            }, wait);
+        }
+    }
+
+    const changeBoardName = debounce((ev) => {
+            db.collection(`users/${userId}/boards`)
+                .doc(boardId)
+                .update({name: ev})
+    }, 9000);
 
 
 	return (
@@ -129,54 +147,55 @@ const Kanban = ({userId}) => {
                     </Modal>
                     
 
-                    <div className="pt-16 pb-10 px-20 h-screen space-y-4">
+                    <main className="pb-5 h-screen relative overflow-y-hidden" >
 
-                        <div className='flex justify-between items-baseline' style={{height: '10%'}}>
-                            <h4 className='text-xl justify-self-start text-gray-900'>{boardName}</h4>
-                        	<div className='flex justify-end items-center mb-5 space-x-10' >
-                                <Link to='/' className='flex items-center text-gray-600 hover:text-gray-800 cursor-pointer'>
-                                    <Home />
-                                    <span>Home</span>
-                                </Link>
-                                <div className='flex items-center text-gray-600 hover:text-gray-800'>
-                                    <Github />
-                                    <a href='http://github.com/drkPrince/agileX' target='blank'>Github</a>
-                                </div>
-                                <div className="flex items-center">
-                                    <h3 className='text-gray-500 mr-2'>Show: </h3>
-                                        <div className='space-x-3 text-gray-600 flex'>
-                                            {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-pink-300' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
-                                            {filter ? <div className='px-2 py-1 cursor-pointer hover:text-gray-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
-                                        </div>
-                                </div>
-                                <div className='bg-gradient-to-tr from-green-100 via-green-200 to-green-300 hover:bg-green-200 text-green-900 rounded-full p-1' onClick={()=>setModal(true)}>
-                                    <Add />
-                                </div>
-                                <div>
-                                    <form onSubmit={addCol}>
-                                        <input type="text" name='newCol' placeholder='Add a new Column' />
-                                    </form>
-                                </div>
-                                
-                        	</div>
-                        </div>
+                        <header className='fixed top-8 left-0 w-full'>
+                            <div className='flex flex-wrap justify-between items-baseline mx-12 ' style={{height: '10%'}}>
+                                <input type="text" defaultValue={boardName} className='text-xl justify-self-start text-gray-900' onChange={(e)=>changeBoardName(e.target.value)} />
+                            	<div className='flex flex-wrap items-center mb-5 space-x-10' >
+                                    <div className='flex items-center text-gray-600 hover:bg-gray-800 hover:text-gray-100 bg-gray-200 rounded-sm px-2 py-1'>
+                                        <Github />
+                                        <a href='http://github.com/drkPrince/agileX' target='blank'>Github</a>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <h3 className='text-gray-500 mr-2'>Show: </h3>
+                                            <div className='space-x-3 text-gray-600 flex'>
+                                                {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-pink-300' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
+                                                {filter ? <div className='px-2 py-1 cursor-pointer hover:text-gray-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
+                                            </div>
+                                    </div>
+                                    <div className='bg-gradient-to-tr from-green-100 via-green-200 to-green-300 hover:bg-green-200 text-green-900 rounded-full p-1' onClick={()=>setModal(true)}>
+                                        <Add />
+                                    </div>
+                                    
+                            	</div>
+                            </div>
+                            
+                        </header>
 
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId='allCols' type='column' direction='horizontal' >
                                 {provided => 
-                                    <div {...provided.droppableProps} ref={provided.innerRef} className="flex items-start space-x-8" style={{height: '90%'}}>
+                                    <div {...provided.droppableProps} ref={provided.innerRef} className="flex items-start mx-6 pt-3 absolute top-20 pr-12" style={{height: '90%'}}>
                                         {initialData.columnOrder.map((col, i) => {
                                             const column = initialData.columns[col]
                                             const tasks = column.taskIds.map(t => t)
                                             return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
                                         })}
+                                        <div className='border-2 border-gray-300 p-2 rounded mx-6'>
+                                            <form onSubmit={addCol}>
+                                                <input type="text" name='newCol' placeholder='Add a new Column' />
+                                            </form>
+                                        </div>
                                         {provided.placeholder}
                                     </div>
                                 }
                             </Droppable>
                         </DragDropContext>
 
-                    </div>
+
+                       
+                    </main>
 
                     </>
                 )
@@ -188,3 +207,31 @@ const Kanban = ({userId}) => {
 }
 
 export default Kanban
+
+
+/* 
+
+<DragDropContext onDragEnd={onDragEnd}>
+    <Droppable droppableId='allCols' type='column' direction='horizontal' >
+        {provided => 
+            <div {...provided.droppableProps} ref={provided.innerRef} className="inline-flex items-start mx-6 pt-3" style={{height: '90%'}}>
+                {initialData.columnOrder.map((col, i) => {
+                    const column = initialData.columns[col]
+                    const tasks = column.taskIds.map(t => t)
+                    return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
+                })}
+                <div className='border-2 border-gray-300 p-2'>
+                    <form onSubmit={addCol}>
+                        <input type="text" name='newCol' placeholder='Add a new Column' />
+                    </form>
+                </div>
+                {provided.placeholder}
+            </div>
+        }
+    </Droppable>
+</DragDropContext>
+
+
+
+
+ */

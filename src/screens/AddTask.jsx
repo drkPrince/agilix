@@ -3,7 +3,6 @@ import {useState} from 'react'
 import {db, firebase} from '../firebase/fbConfig'
 import {v4 as uuidv4} from 'uuid';
 
-
 const AddTask = ({boardId, userId, close, allCols}) => 
 {
 	const [description, setDescription] = useState(null)
@@ -41,11 +40,12 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 					
 					<div className='col-span-4'>
 			            <label htmlFor="priority" className='block'>Priority:</label>
-			            <select name="priority" className='px-1 py-2'>
+			            <select name="priority" defaultValue='could' className='px-1 py-2'>
 			            	<option value="must" className=''>Must</option>
 			            	<option value="should" className=''>Should</option>
 			            	<option value="could" className=''>Could</option>
 			            </select>
+			           
 					</div>
 				</div>
 
@@ -56,7 +56,7 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 
 				<div className="my-4">
 					<label htmlFor="column">Select a column</label>
-					<select name="column" required>
+					<select name="column" required className='px-1 py-2 ml-2'>
 						{allCols.map(c => <option value={c} key={c}>{c}</option>)}
 					</select>
 				</div>

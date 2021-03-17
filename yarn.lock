@@ -2039,6 +2039,27 @@
     react-remove-scroll "^2.4.1"
     tslib "^2.1.0"
 
+"@reach/listbox@^0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@reach/listbox/-/listbox-0.13.2.tgz#0c0c1e6620dbc970c79bc9ea6bfd98c33be4fae5"
+  integrity sha512-gCT2utZsHtA93WzIuF4tAjbMVBIKq+v13z55ySOsa6cxEykKQMtthv+duD50vTScvzg3YLzrM6cPWTgv11YulA==
+  dependencies:
+    "@reach/auto-id" "0.13.2"
+    "@reach/descendants" "0.13.2"
+    "@reach/machine" "0.13.2"
+    "@reach/popover" "0.13.2"
+    "@reach/utils" "0.13.2"
+    prop-types "^15.7.2"
+
+"@reach/machine@0.13.2":
+  version "0.13.2"
+  resolved "https://registry.yarnpkg.com/@reach/machine/-/machine-0.13.2.tgz#744302f5ce2d4e5fd0527ae0baa60d325b2325d8"
+  integrity sha512-sYwkap6s4Rh2Uvs1IwMH537UJ1lHalMjjQlIV1cgruvOSVLvEB4WiGZpiKU6OS4WPVFW+iYuJwNW1mbGGSJkQg==
+  dependencies:
+    "@reach/utils" "0.13.2"
+    "@xstate/fsm" "1.4.0"
+    tslib "^2.1.0"
+
 "@reach/menu-button@^0.13.2":
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/@reach/menu-button/-/menu-button-0.13.2.tgz#7c819be84d66a09d2ddc6e97caa91653e95c3c68"
@@ -2856,6 +2877,11 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
+
+"@xstate/fsm@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.4.0.tgz#6fd082336fde4d026e9e448576189ee5265fa51a"
+  integrity sha512-uTHDeu2xI5E1IFwf37JFQM31RrH7mY7877RqPBS4ZqSNUwoLDuct8AhBWaXGnVizBAYyimVwgCyGa9z/NiRhXA==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
