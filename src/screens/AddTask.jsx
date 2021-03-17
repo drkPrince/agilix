@@ -32,21 +32,31 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 			<form onSubmit={addTask} className=''>
 				<h4 className='text text-gray-700'>Add a New Task</h4>
 
-				<div className="grid mt-12 grid-cols-12">
-					<div className='col-span-8'>
+				<div className="mt-12 ">
+					<div className=''>
 						<label htmlFor="newTaskTitle" className='block'>Title:</label>
 						<input required type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-2xl outline-none' />
 					</div>
 					
-					<div className='col-span-4'>
-			            <label htmlFor="priority" className='block'>Priority:</label>
-			            <select name="priority" defaultValue='could' className='px-1 py-2'>
-			            	<option value="must" className=''>Must</option>
-			            	<option value="should" className=''>Should</option>
-			            	<option value="could" className=''>Could</option>
-			            </select>
-			           
+					<div className="flex my-8">
+						<div className=''>
+				            <label htmlFor="priority" className=''>Priority: </label>
+				            <select name="priority" defaultValue='could' className='select'>
+				            	<option value="must" className='option'>Must</option>
+				            	<option value="should" className='option'>Should</option>
+				            	<option value="could" className='option'>Could</option>
+				            </select>
+				           
+						</div>
+
+						<div className="ml-12">
+							<label htmlFor="column">Select a column: </label>
+							<select name="column" required className='select'>
+								{allCols.map(c => <option className='option' value={c} key={c}>{c}</option>)}
+							</select>
+						</div>
 					</div>
+
 				</div>
 
 				<div className="my-8">
@@ -54,12 +64,6 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 					<textarea name="desc" className='border border-gray-300 w-full px-4 py-3 outline-none h-32' defaultValue={description} onChange={(e)=>setDescription(e.target.value)} />
 				</div>
 
-				<div className="my-4">
-					<label htmlFor="column">Select a column</label>
-					<select name="column" required className='px-1 py-2 ml-2'>
-						{allCols.map(c => <option value={c} key={c}>{c}</option>)}
-					</select>
-				</div>
 
 	            <button className='bg-purple-500 text-white px-2 py-1 rounded-sm'>Add Task</button>
 	        </form>

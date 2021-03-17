@@ -13,26 +13,18 @@ progress {
 }
 
 progress::-webkit-progress-bar {
-	background-color: rgba( 0, 0, 0, 0.15 );
+	background-color: rgba( 0, 0, 0, 0.18 );
 	border-radius: 7px;
 }
 
 progress::-webkit-progress-value {
-	background-color: darkslateblue;
+	background-color: #2d69e8;
 	border-radius: 2px;
 }
 
 progress::-moz-progress-bar {
 	/* style rules */
 }
-
-
-.card {
-	background: rgba( 255, 255, 255, 0.10 );
-	/*backdrop-filter: blur( 4.5px );*/
-	-webkit-backdrop-filter: blur( 4.5px );
-}
-
 
 
 *::-webkit-scrollbar {
@@ -65,6 +57,7 @@ progress::-moz-progress-bar {
 	bottom: 0;
 	left: 0;
 	overflow: auto;
+	z-index: 40;
 }
 
 [data-reach-dialog-content] {

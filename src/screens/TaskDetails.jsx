@@ -79,10 +79,10 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 						<div className="mt-8">
 							<label className='text-gray-500 block' htmlFor="title">Priority:</label>
 							<div className="flex">
-								<select name="priority" defaultValue={taskDetails.priority} className='px-1 py-2 mr-3 outline-none bg-gray-300 rounded-sm hover:bg-gray-400' onChange={(e)=>setPriority(e.target.value)}>
-									<option className='bg-gray-200 outline-none my-6 border-none py-3' value="must">Must</option>
-									<option className='bg-gray-200 outline-none my-6 border-none py-3' value="should">Should</option>
-									<option className='bg-gray-200 outline-none my-6 border-none py-3' value="could">Could</option>
+								<select name="priority" defaultValue={taskDetails.priority} className='select' onChange={(e)=>setPriority(e.target.value)}>
+									<option className='option' value="must">Must</option>
+									<option className='option' value="should">Should</option>
+									<option className='option' value="could">Could</option>
 								</select>
 								{extractPriority(taskDetails.priority)}
 							</div>
