@@ -42,7 +42,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 	}
 
 	const endOfDrag = (result) => {
-		const {destination, source, draggableId} = result
+		const {destination, source} = result
 		if(!destination) return
 		const toBeMoved = todoList[source.index]
 		const newOrder = [...todoList]
