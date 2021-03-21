@@ -4,6 +4,7 @@ import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 import {Checked, Unchecked, Cross, Dragger} from './Icons'
 import {firebase, db} from '../firebase/fbConfig'
 import {useState, useRef} from 'react'
+import {v4 as uuidv4} from 'uuid';
 
 
 const Checklist = ({todos, taskId, boardId, userId}) => {
@@ -13,10 +14,11 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 
 	const addSubTask = (e) => {
 		if(e.key === 'Enter'){
-		 	setList([...todoList, {task: e.target.value, done: false}])
+			const uid = uuidv4()
+		 	setList([...todoList, {id: uid, task: e.target.value, done: false}])
 			db.collection(`users/${userId}/boards/${boardId}/tasks`)
 				.doc(taskId)
-				.update({todos: firebase.firestore.FieldValue.arrayUnion({task: e.target.value, done: false})})
+				.update({todos: firebase.firestore.FieldValue.arrayUnion({id: uid, task: e.target.value, done: false})})
 			newTaskRef.current.value = ''	
 		}
 	}
@@ -60,7 +62,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 					{ (provided, snapshot) => 
 						<div {...provided.droppableProps} ref={provided.innerRef}>
 							{todoList.map((t, i) => 
-								<Draggable draggableId={t.task} index={i} key={t.task}>
+								<Draggable draggableId={t.task} index={i} key={t.id}>
 						            {(provided, snapshot) => 
 						                <div className='flex items-center mt-3 w-full justify-between pr-6' {...provided.draggableProps} ref={provided.innerRef}>
 						                    <div className='flex w-2/3'>
@@ -69,10 +71,10 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 						                    	</div>
 						                    	<h4 className={`ml-2 ${t.done ? 'line-through text-gray-400' : ''}`}>{t.task}</h4>
 						                    </div>
-											<div onClick={() => deleteSubTask(t.task)}>
+											<div className='text-red-400 hover:text-red-700 cursor-pointer' onClick={() => deleteSubTask(t.task)}>
 												<Cross />
 											</div>
-											<div {...provided.dragHandleProps} >
+											<div {...provided.dragHandleProps} className='text-gray-600' >
 												<Dragger />
 											</div>
 						                </div>
@@ -84,7 +86,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 					}
 				</Droppable>
 			</DragDropContext>
-			<input ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-6 w-full' />	
+			<input maxLength='30' ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-3 w-full' />	
 		</div>
 	)
 }

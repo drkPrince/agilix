@@ -8,7 +8,7 @@ const useBoards = (userId) => {
         return db.collection(`users`).doc(userId).get()
             .then(doc => {
                 try {
-                    if(doc.exists){
+                    if(doc){
                         return db.collection(`users/${doc.id}/boards`).onSnapshot(snap => {
                             const documents = []
                             snap.forEach(doc => documents.push({id: doc.id, ...doc.data()}))

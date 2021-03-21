@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
 import { firebase, db } from '../firebase/fbConfig'
 
-const useAuth = () => {
+import {createBoardForAnons} from '../utils'
 
+const useAuth = () => 
+{
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
 
     const loginWithGoogle = async () => {
         try {
             const provider = new firebase.auth.GoogleAuthProvider()
-            await firebase.auth().signInWithPopup(provider)
+            await firebase.auth().signInWithRedirect(provider)
             setError(null)
         } catch (err) {
             console.log(err)
@@ -17,24 +19,17 @@ const useAuth = () => {
         }
     }
 
-
-    const loginAnonymously = async () => {
+    const loginAnonymously = () => {
         firebase.auth().signInAnonymously()
-            .then(() => {
-                console.log('Anon Signed in')
-            })
-
-            .catch((error) => {
-                console.log('anon failed')
-            });
+            .then((user) => { 
+                console.log('Welcome Anon')
+                createBoardForAnons(user.user.uid)
+        })
     }
-
 
     const logOut = () => {
         firebase.auth().signOut()
     }
-
-
 
     useEffect(() => {
         return firebase.auth().onAuthStateChanged(user => {
@@ -47,7 +42,7 @@ const useAuth = () => {
         })
     }, [user])
 
-    return [user, loginWithGoogle, loginAnonymously, logOut, error]
+    return [user, loginWithGoogle, logOut, error, loginAnonymously]
 }
 
 

@@ -12,18 +12,19 @@ import AddTask from '../screens/AddTask'
 import {Add, Github} from '../components/Icons'
 
 import useKanbanData from '../hooks/useKanbanData'
-
 import {debounce} from '../utils'
 
 
 const Kanban = ({userId}) => {
 
+    
     const {boardId} = useParams()
     const [modal, setModal] = useState(false)
     const {initialData, setInitialData, boardName} = useKanbanData(userId, boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['must', 'should', 'could']
 
+   
 	const onDragEnd = (result) => {
 
         const {destination, source, draggableId} = result
@@ -32,7 +33,6 @@ const Kanban = ({userId}) => {
 
         if(result.type === 'task')  {
 
-            // if(source.droppableId !== 'inProgress' && destination.droppableId === 'inProgress' && initialData.columns.inProgress.taskIds.length === 3)	{
             	
 
             const startColumn = initialData.columns[source.droppableId]    
@@ -136,24 +136,24 @@ const Kanban = ({userId}) => {
                     </Modal>
                     
 
-                    <main className="pb-5 h-screen relative " >
+                    <main className="pb-5 h-screen relative">
 
-                        <header className='fixed top-0 pt-8 pb-4 w-full bg-white z-10'>
-                            <div className='flex flex-wrap justify-between items-baseline mx-10 ' >
-                                <input type="text" defaultValue={boardName} className='text-xl justify-self-start text-gray-900' onChange={(e)=>changeBoardName(e.target.value)} />
-                            	<div className='flex flex-wrap items-center space-x-10' >
-                                    <div className='flex items-center text-gray-600 hover:bg-gray-300 bg-gray-200 rounded-sm px-2 py-1'>
+                        <header className='fixed top-0 pt-6 sm:pt-8 pb-2 sm:pb-4 w-full bg-white z-10 text-sm sm:text-base'>
+                            <div className='flex flex-wrap justify-between items-baseline mx-10' >
+                                <input type="text" defaultValue={boardName} className='text-xl text-gray-900' onChange={(e)=>changeBoardName(e.target.value)} />
+                            	<div className='flex flex-wrap items-center sm:space-x-9' >
+                                    <div className='flex items-center text-gray-600 hover:bg-gray-300 bg-gray-200 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
                                         <Github />
                                         <a href='http://github.com/drkPrince/agileX' target='blank'>Github</a>
                                     </div>
-                                    <div className="flex items-center">
+                                    <div className="flex items-center mt-2 sm:mt-0">
                                         <h3 className='text-gray-500 mr-2'>Show: </h3>
-                                            <div className='space-x-3 text-gray-600 flex'>
-                                                {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-blue-200 text-blue-900' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
-                                                {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
-                                            </div>
+                                        <div className='space-x-1 sm:space-x-3 text-gray-600 flex'>
+                                            {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-blue-200 text-blue-900' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
+                                            {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
+                                        </div>
                                     </div>
-                                    <div className='bg-gradient-to-tr from-green-100 via-green-200 to-green-300 hover:bg-green-200 text-green-900 rounded-full p-1' onClick={()=>setModal(true)}>
+                                    <div className='bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 hover:bg-blue-800 text-white rounded-full p-2 sm:p-1 fixed bottom-4 right-3 sm:static' onClick={()=>setModal(true)}>
                                         <Add />
                                     </div>
                             	</div>
@@ -165,15 +165,17 @@ const Kanban = ({userId}) => {
                             <Droppable droppableId='allCols' type='column' direction='horizontal' >
                                 {provided => 
                                     <div {...provided.droppableProps} ref={provided.innerRef} className="flex items-start mx-6 absolute top-28" style={{height: '90%'}}>
-                                        {initialData.columnOrder.map((col, i) => {
-                                            const column = initialData.columns[col]
-                                            const tasks = column.taskIds.map(t => t)
-                                            return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
-                                        })}
+                                        {
+                                            initialData?.columnOrder.map((col, i) => {
+                                                const column = initialData.columns[col]
+                                                const tasks = column.taskIds.map(t => t)
+                                                return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
+                                            }) 
+                                        }
                                         {provided.placeholder}
-                                        <div>
+                                        <div className='mx-6'>
                                             <form onSubmit={addCol}>
-                                                <input className='border-2 border-blue-300 p-2 rounded mx-6 z-4 placeholder-blue-400' type="text" name='newCol' placeholder='Add a new Column' />
+                                                <input className='px-2 py-1 z-4 placeholder-blue-900 border border-blue-700 text-blue-900 rounded' type="text" name='newCol' placeholder='Add a new Column' />
                                             </form>
                                         </div>
                                     </div>
@@ -185,7 +187,7 @@ const Kanban = ({userId}) => {
                     </>
                 )
                 :
-                <h4>Loading Tasks</h4>
+                <div className="spinner h-screen w-screen" />
             }
         </>
 	)
@@ -194,29 +196,3 @@ const Kanban = ({userId}) => {
 export default Kanban
 
 
-/* 
-
-<DragDropContext onDragEnd={onDragEnd}>
-    <Droppable droppableId='allCols' type='column' direction='horizontal' >
-        {provided => 
-            <div {...provided.droppableProps} ref={provided.innerRef} className="inline-flex items-start mx-6 pt-3" style={{height: '90%'}}>
-                {initialData.columnOrder.map((col, i) => {
-                    const column = initialData.columns[col]
-                    const tasks = column.taskIds.map(t => t)
-                    return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
-                })}
-                <div className='border-2 border-gray-300 p-2'>
-                    <form onSubmit={addCol}>
-                        <input type="text" name='newCol' placeholder='Add a new Column' />
-                    </form>
-                </div>
-                {provided.placeholder}
-            </div>
-        }
-    </Droppable>
-</DragDropContext>
-
-
-
-
- */

@@ -69,3 +69,36 @@ progress::-moz-progress-bar {
 	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }
 
+
+
+.spinner {
+  width: 200px;
+  height: 200px;
+  margin: 100px auto;
+  background-color: #5222d0;
+
+  border-radius: 100%;  
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+

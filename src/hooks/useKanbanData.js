@@ -47,7 +47,7 @@ const useKanban = (userId, boardId) => {
             const co = columns.find(c => c.id === 'columnOrder')
             const cols = columns.filter(c => c.id !== 'columnOrder')
             
-            finalObject.columnOrder = co.order
+            finalObject.columnOrder = co?.order
             finalObject.columns = {}
             finalObject.tasks = {}
 

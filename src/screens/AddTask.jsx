@@ -28,19 +28,19 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 
 
 	return (
-		<div className='p-12'>
+		<div className='px-3 py-2 md:px-12  text-sm md:text-base'>
 			<form onSubmit={addTask} className=''>
-				<h4 className='text text-gray-700'>Add a New Task</h4>
+				<h4 className='text-lg sm:text-2xl text-gray-800'>Add a New Task</h4>
 
-				<div className="mt-12 ">
-					<div className=''>
-						<label htmlFor="newTaskTitle" className='block'>Title:</label>
-						<input required type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-2xl outline-none' />
+				<div className="mt-6 sm:mt-12">
+					<div>
+						<label htmlFor="newTaskTitle" className='block text-gray-500'>Title:</label>
+						<input maxLength='45' required type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-lg md:text-2xl outline-none' />
 					</div>
 					
-					<div className="flex my-8">
+					<div className="sm:flex my-8">
 						<div className=''>
-				            <label htmlFor="priority" className=''>Priority: </label>
+				            <label htmlFor="priority" className=' text-gray-500 block sm:inline'>Priority: </label>
 				            <select name="priority" defaultValue='could' className='select'>
 				            	<option value="must" className='option'>Must</option>
 				            	<option value="should" className='option'>Should</option>
@@ -49,8 +49,8 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 				           
 						</div>
 
-						<div className="ml-12">
-							<label htmlFor="column">Select a column: </label>
+						<div className="mt-8 sm:mt-0 sm:ml-12">
+							<label className='text-gray-500 block sm:inline' htmlFor="column">Select a column: </label>
 							<select name="column" required className='select'>
 								{allCols.map(c => <option className='option' value={c} key={c}>{c}</option>)}
 							</select>
@@ -60,7 +60,7 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 				</div>
 
 				<div className="my-8">
-					<label htmlFor="newTaskDescription" className='block'>Description (optional):</label>
+					<label htmlFor="newTaskDescription" className='block text-gray-500'>Description (optional):</label>
 					<textarea name="desc" className='border border-gray-300 w-full px-4 py-3 outline-none h-32' defaultValue={description} onChange={(e)=>setDescription(e.target.value)} />
 				</div>
 

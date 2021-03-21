@@ -1,5 +1,4 @@
 
-
 import {db} from '../firebase/fbConfig'
 import {BrowserRouter, Route} from 'react-router-dom'
 import useBoards from '../hooks/useBoards'
@@ -10,7 +9,9 @@ import Kanban from './Kanban'
 
 import {v4 as uuidv4} from 'uuid';
 
-const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
+
+const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) => 
+{
 
     const boards = useBoards(userId)    
 
@@ -22,35 +23,26 @@ const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
             .doc(uid)
             .set({name: e.target.elements.boardName.value})
 
-
-        const columnsObject = [{id: 'backlog', title: 'Backlog', taskIds: ['welcome']}, {id: 'inProgress', title: 'In Progress', taskIds: []}, {id: 'ready', title: 'Ready', taskIds: []}, {id: 'done', title: 'Done', taskIds: []}]    
-
-        const columnOrder = {id: 'columnOrder', order: ['backlog', 'inProgress', 'done']}
-
-        columnsObject.forEach(c => {
-            db.collection(`users/${userId}/boards`)
-                .doc(uid)
-                .collection('columns')
-                .doc(c.id)
-                .set({title: c.title, taskIds: c.taskIds})    
-        })
+        const columnOrder = {id: 'columnOrder', order: []}
 
         db.collection(`users/${userId}/boards/${uid}/columns`)
             .doc('columnOrder')
             .set(columnOrder)
 
+        e.target.value = ''   
 
-        db.collection(`users/${userId}/boards`)
-            .doc(uid)
-            .collection('tasks')
-            .doc('welcome')
-            .set({title: 'Welcome to Agility', priority: 'should', todos: [], description: 'Agility is an opinionated Agile planner.'})
     }
 
-    return boards ? (
+    const deleteBoard = (id) => {
+        db.collection(`users/${userId}/boards`)
+            .doc(id)
+            .delete()
+    }
+
+    return boards !== null ? (
          <BrowserRouter>
                 <Route exact path='/'>
-                    <BoardList loginWithGoogle={loginWithGoogle} logOut={logOut} boards={boards} addNewBoard={addNewBoard} isAnon={isAnon} name={name}/>
+                    <BoardList deleteBoard={deleteBoard} logOut={logOut} boards={boards} addNewBoard={addNewBoard} name={name}/>
                 </Route>
 
                 <Route path='/board/:boardId'>
@@ -59,7 +51,7 @@ const Home = ({logOut, userId, isAnon, loginWithGoogle, name}) => {
 
             </BrowserRouter>
 
-    ) : <div>Bringing boards</div>
+    ) : <div className="spinner h-screen w-screen" />
 }
 
 export default Home
