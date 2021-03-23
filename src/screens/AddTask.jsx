@@ -41,10 +41,10 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 					<div className="sm:flex my-8">
 						<div className=''>
 				            <label htmlFor="priority" className=' text-gray-500 block sm:inline'>Priority: </label>
-				            <select name="priority" defaultValue='could' className='select'>
-				            	<option value="must" className='option'>Must</option>
-				            	<option value="should" className='option'>Should</option>
-				            	<option value="could" className='option'>Could</option>
+				            <select name="priority" defaultValue='low' className='select'>
+				            	<option value="high" className='option'>High</option>
+				            	<option value="medium" className='option'>Medium</option>
+				            	<option value="low" className='option'>Low</option>
 				            </select>
 				           
 						</div>

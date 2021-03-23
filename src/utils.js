@@ -6,17 +6,17 @@ import {Low, Medium, High} from './components/Icons'
 export const extractPriority = (priority) => {
 	switch(priority)
 	{
-		case 'could':
+		case 'low':
 		{
 			return <Low />
 		}
 
-		case 'should':
+		case 'medium':
 		{
 			return <Medium />
 		}
 
-		case 'must':
+		case 'high':
 		{
 			return <High />
 		}
@@ -44,16 +44,7 @@ export const createBoardForAnons = (userId) => {
 	        id: '1',
 	        title: 'Welcome to Agilix 🙌', 
 	        description: 'Agilix is a Kanban planner that helps you to focus on what matters most.',
-	        priority: 'could',
-	        dateAdded: new Date(), 
-	        todos: []
-	    },
-
-	    {
-	        id: '5',
-	        title: 'There are three levels of priority. 🔴 🔶 💚', 
-	        description: 'Items with priority **Must** are most important. You should focus on these first. **Should** priority tasks are nice to have done. The **Could** are least important. Do them at last.',
-	        priority: 'could',
+	        priority: 'low',
 	        dateAdded: new Date(), 
 	        todos: []
 	    },
@@ -62,7 +53,7 @@ export const createBoardForAnons = (userId) => {
 	        id: '2',
 	        title: 'You can add detailed Descriptions.', 
 	        description: '## Agilix support Markdown too!',
-	        priority: 'must',
+	        priority: 'high',
 	        dateAdded: new Date(), 
 	        todos: []
 	    },
@@ -71,7 +62,7 @@ export const createBoardForAnons = (userId) => {
 	        id: '3',
 	        title: 'Try rearranging tasks and columns', 
 	        description: null,
-	        priority: 'must',
+	        priority: 'high',
 	        dateAdded: new Date(), 
 	        todos: []
 	    }, 
@@ -81,7 +72,7 @@ export const createBoardForAnons = (userId) => {
 	        id: '4',
 	        title: 'Breakdown big tasks into small actionable steps.', 
 	        description: 'Make these steps actionable, manageable, and small. ',
-	        priority: 'must',
+	        priority: 'medium',
 	        dateAdded: new Date(), 
 	        todos: [{id: 1, task: 'First subtask', done: false}, {id: 3, task: 'And another', done: true}, {id: 2, task: 'You can reorder these too!', done: false}]
 	    }
@@ -90,7 +81,7 @@ export const createBoardForAnons = (userId) => {
 	const columns = [
 	    {title: 'Backlog', taskIds: ['1', '2']},
 	    {title: 'In Progress', taskIds: ['3']},
-	    {title: 'Done', taskIds: ['4', '5']},
+	    {title: 'Done', taskIds: ['4']},
 	]
 
 	const columnOrder = {id: 'columnOrder', order: ['Backlog', 'In Progress', 'Done']}

@@ -5,13 +5,15 @@ import {Bin, Exclaim} from './Icons'
 
 import {db, firebase} from '../firebase/fbConfig'
 import {debounce} from '../utils'
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import Modal from './Modal'
 
 
 const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) => {
 
     const [modal, setModal] = useState(false)
+    const [editingCol, setEditing] = useState(false)
+    const colInput = useRef(null)
 
     const deleteCol = (colId, tasks) => {
         db.collection(`users/${userId}/boards/${boardId}/columns`)        
@@ -36,24 +38,30 @@ const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) =>
             .update({title: e.target.value})
     }, 7000)
 
+    const moveToInp = () => {
+        setEditing(true)
+        setTimeout(()=>{
+            colInput.current.focus()
+        }, 50)
+    }
+
 
     return (
         <>
             <Draggable draggableId={column.id} index={index} key={column.id}>
                 {provided => 
-                    <div {...provided.draggableProps} ref={provided.innerRef} className='mx-4 max-h-full fancyNav min-w-max relative' >
-                        <div className='w-48 sm:w-64' style={{'minHeight': '20vh', 'backgroundColor': '#ecf3ff'}} >
-                            <div {...provided.dragHandleProps} className='bg-gradient-to-r from-blue-700 to-blue-500 flex items-center justify-between px-4 py-1 sticky top-0 rounded-sm'>
-                                <div className='flex items-center'>
-                                    <input className='bg-transparent sm:text-xl text-blue-100 truncate text-lg w-10/12' type="text" defaultValue={column.title} onChange={(e)=>changeColName(e, column.id)} />
-                                </div>
-                                <div className='text-blue-700 cursor-pointer' onClick={()=>setModal(true)} >
+                    <div {...provided.draggableProps} ref={provided.innerRef} className='mr-5'>
+                        <div style={{background: '#edf2ff'}}>
+                            <div {...provided.dragHandleProps} className='bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 flex items-center justify-between px-4 py-1 rounded-sm z-50'>
+                               <input ref={colInput} className={`sm:text-xl text-blue-700 text-lg px-2 w-10/12 ${editingCol ? '' : 'hidden'}`} onBlur={()=>setEditing(false)} type="text" defaultValue={column.title} onChange={(e)=>changeColName(e, column.id)} />
+                               <h2 className={`sm:text-lg text-blue-100 truncate text-lg ${editingCol ? 'hidden' : ''}`} onClick={moveToInp}>{column.title} </h2>
+                                <div className='text-blue-700 cursor-pointer' onClick={()=>setModal(true)}>
                                     <Bin />
                                 </div>
                             </div>
                             <Droppable droppableId={column.id} type='task'>
                                 {(provided, snapshot) => 
-                                    <div {...provided.droppableProps} ref={provided.innerRef} className={`shadow-inner h-full py-4 px-2 transition-all duration-1000 ${snapshot.isDraggingOver ? 'bg-blue-500' : ''}`}>
+                                    <div {...provided.droppableProps} ref={provided.innerRef} className={`shadow-inner h-full py-4 px-2 transition-colors duration-1000 ${snapshot.isDraggingOver ? 'bg-gradient-to-br from-blue-700 to-blue-500' : ''}`}>
                                         {tasks.map((t, i) =>  <Task allData={allData} id={t} index={i} key={t} boardId={boardId} userId={userId} columnDetails={column} filterBy={filterBy}/> )}
                                         {provided.placeholder}
                                     </div>
@@ -86,8 +94,3 @@ export default Column
 
 
 
-/* 
-
-
-
- */
