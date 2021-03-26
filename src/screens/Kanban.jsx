@@ -137,7 +137,7 @@ const Kanban = ({userId}) => {
                     <main className="pb-2 h-screen w-screen">
 
                         <div className='flex flex-col h-full'>
-                            <header className='bg-white z-10 text-sm sm:text-base py-5 mx-6'>
+                            <header className='bg-white z-10 text-sm sm:text-base py-5 mx-3 md:mx-6'>
                                 <div className='flex flex-wrap justify-between items-center ' >
                                     <span className='text-xl'>
                                         <Link to='/' className='text-blue-800 hover:text-blue-500'>Boards </Link>
@@ -167,7 +167,7 @@ const Kanban = ({userId}) => {
                             <DragDropContext onDragEnd={onDragEnd}>
                                 <Droppable droppableId='allCols' type='column' direction='horizontal' >
                                     {provided => 
-                                        <div {...provided.droppableProps} ref={provided.innerRef} className="grid overflow-x-auto h-full items-start pt-3 md:pt-2 mx-6 auto-cols-220 md:auto-cols-270 grid-flow-col" style={{height: '90%'}}>
+                                        <div {...provided.droppableProps} ref={provided.innerRef} className="grid overflow-x-auto h-full items-start pt-3 md:pt-2 mx-1 md:mx-6 auto-cols-220 md:auto-cols-270 grid-flow-col" style={{height: '90%'}}>
                                             {
                                                 initialData?.columnOrder.map((col, i) => {
                                                     const column = initialData.columns[col]
