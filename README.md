@@ -5,6 +5,7 @@
 ![Firebase](https://img.shields.io/badge/Firebase-8.3.0-ffa611)
 ![Tailwind](https://img.shields.io/badge/Tailwind-2.0.3-06b6d4)
 ![React Markdown](https://img.shields.io/badge/react_markdown-^5.0.3-333383)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/7e065aaf-ae63-4df2-ba16-b9e7ba491bf5/deploy-status)](https://app.netlify.com/sites/agilix/deploys)
 
 Agilix is an agile planner web app made with **React, Firebase, React Beautiful DND, TailwindCSS and React Markdown**. It is heavily inspired by Trello.
 
