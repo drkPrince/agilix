@@ -29,7 +29,7 @@ const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) =>
             .doc('columnOrder')
             .set(columnOrder)
 
-        e.target.value = ''   
+        e.target.elements.boardName.value = ''   
 
     }
 

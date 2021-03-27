@@ -142,21 +142,21 @@ const Kanban = ({userId}) => {
                                     <span className='text-xl'>
                                         <Link to='/' className='text-blue-800 hover:text-blue-500'>Boards </Link>
                                         <span className=''>/</span>
-                                        <input type="text" defaultValue={boardName} className=' text-gray-800 ml-2 w-1/2 truncate' onChange={(e)=>changeBoardName(e.target.value)} />
+                                        <input type="text" defaultValue={boardName} className='text-gray-800 ml-2 w-1/2 truncate' onChange={(e)=>changeBoardName(e.target.value)} />
                                     </span> 
-                                    <div className='flex flex-wrap items-center sm:space-x-9' >
-                                        <div className="flex items-center mt-2 sm:mt-0">
+                                    <div className='flex flex-wrap items-center sm:space-x-9'>
+                                        <div className="flex items-center mt-2 sm:mt-0 ">
                                             <h3 className='text-gray-500 mr-2'>Show Priority: </h3>
-                                            <div className='space-x-1 sm:space-x-1 text-gray-600 flex'>
-                                                {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-blue-200 text-blue-900' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
-                                                {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
+                                            <div className='space-x-1 text-indigo-900 flex bg-indigo-50 rounded-sm'>
+                                                {filters.map(f => <div key={f} className={`px-3  border-black py-1 hover:bg-blue-600 hover:text-blue-50 cursor-pointer capitalize ${filter === f ? 'bg-blue-600 text-blue-50' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
+                                                {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-700 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
                                             </div>
                                         </div>
-                                        <div className='flex items-center text-gray-600 hover:bg-gray-300 bg-gray-200 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
+                                        <div className='flex items-center text-indigo-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
                                             <Github />
                                             <a href='https://github.com/drkPrince/agilix' target='blank'>Github</a>
                                         </div>
-                                        <div className='bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 hover:bg-blue-800 text-white rounded-full p-2 sm:p-1 fixed bottom-6 right-6 sm:static' onClick={()=>setModal(true)}>
+                                        <div className='text-white bg-gradient-to-br from-primary via-indigo-600 to-blue-600 transform hover:scale-110 transition-all duration-300 rounded-full p-2 sm:p-1 fixed bottom-6 right-6 sm:static' onClick={()=>setModal(true)}>
                                             <Add />
                                         </div>
                                     </div>
@@ -176,12 +176,9 @@ const Kanban = ({userId}) => {
                                                 }) 
                                             }
                                             {provided.placeholder}
-                                            <div className="w-10/12">
-                                                <form onSubmit={addCol} autoComplete='off' className='flex items-center justify-around bg-blue-50 py-0.5 border border-blue-800 rounded ring-1 focus:ring-blue-700 text-blue-500 w-full'>
-                                                    <Add />
-                                                    <input size='15' className='bg-transparent placeholder-blue-500 outline-none text-blue-800' type="text" name='newCol' placeholder='Add a new Column' />
-                                                </form>
-                                            </div>
+                                            <form onSubmit={addCol} autoComplete='off' className='ml-2'>
+                                                <input maxLength='20' className='truncate bg-transparent placeholder-indigo-500 text-indigo-800 bg-indigo-50 px-2 outline-none py-1 rounded-sm ring-2 focus:ring-indigo-500' type="text" name='newCol' placeholder='Add a new column' />
+                                            </form>
                                         </div>
                                     }
                                 </Droppable>

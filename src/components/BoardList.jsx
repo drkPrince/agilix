@@ -60,7 +60,7 @@ const BoardList = ({ logOut, boards, addNewBoard, deleteBoard, name }) =>
                             <div className='bg-white text-gray-700 mb-3 mr-4 py-4 px-6 rounded-sm shadow-md w-full sm:w-auto' key={b.id}>
                                 <div className="flex items-center justify-between">
                                     <Link to={`/board/${b.id}`}><h2 className='text-lg sm:text-2xl text-gray-700 hover:text-gray-900'>{b.name}</h2></Link>
-                                    <div onClick={() => openDeleteModal(b.id)} className='text-red-500 ml-6'>
+                                    <div onClick={() => openDeleteModal(b.id)} className='text-red-500 ml-6 cursor-pointer hover:text-red-700'>
                                         <Bin />
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@ const BoardList = ({ logOut, boards, addNewBoard, deleteBoard, name }) =>
                     </div>
                 </div>
             </div>
-            <form onSubmit={addNewBoard} className='my-4 sm:my-8'>
+            <form onSubmit={addNewBoard} autoComplete='off' className='my-4 sm:my-8'>
                 <label htmlFor="boardName" className='block text-xl text-blue-900'>Make a new board</label>
                 <div className="flex items-center mt-2">
                     <input required type="text" name='boardName' className='bg-transparent border border-gray-500 px-2 py-1 rounded-sm placeholder-gray-700' placeholder='Enter a board name' />
