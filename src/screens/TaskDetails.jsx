@@ -53,7 +53,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 				</div>
 			</Modal>
 
-			<form onSubmit={updateTask}>
+			<form onSubmit={updateTask} autoComplete='off'>
 
 				<div >
 					<label className='text-gray-500 uppercase tracking-wide text-xs sm:text-sm  block' htmlFor="title">Title:</label>
@@ -124,7 +124,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 
 						{taskDetails.dateAdded ? <div className="mt-12">
 							<label className='text-gray-500 uppercase tracking-wide text-xs sm:text-sm  block' htmlFor="desc" >Date Added:</label>
-							<h4 className='tracking-wide'>{new Date(taskDetails.dateAdded.seconds * 1000).toLocaleString()}</h4>
+							<h4 className='tracking-wide'>{new Date(taskDetails.dateAdded.seconds * 1000).toLocaleString().split(',')[0]}</h4>
 						</div> : null}
 					</div>
 				</div>
@@ -133,7 +133,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 				
 
 {/* Buttons */}
-				<div className='my-12 flex justify-end w-full'>
+				<div className='my-12 flex justify-end w-full text-sm sm:text-base'>
 					{(taskDetails.description !== updatedDesc) || (taskDetails.title !== updatedTitle) || (taskDetails.priority !== updatedPriority)
 						? 
 						<div className='bg-green-700 text-white px-2 py-1 rounded-sm transform hover:-translate-y-1 transition-transform duration-300'>

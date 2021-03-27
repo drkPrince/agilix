@@ -61,7 +61,7 @@ const Column = ({ column, tasks, allData, boardId, userId, filterBy, index }) =>
                             </div>
                             <Droppable droppableId={column.id} type='task'>
                                 {(provided, snapshot) => 
-                                    <div {...provided.droppableProps} ref={provided.innerRef} className={`shadow-inner h-full py-4 px-2 transition-colors duration-1000 ${snapshot.isDraggingOver ? 'bg-gradient-to-br from-blue-700 to-blue-500' : ''}`}>
+                                    <div {...provided.droppableProps} ref={provided.innerRef} className={`shadow-inner h-full py-4 px-2 transition-all duration-500 ${snapshot.isDraggingOver ? 'bg-gradient-to-br from-green-500 via-green-400 to-green-300' : ''}`}>
                                         {tasks.map((t, i) =>  <Task allData={allData} id={t} index={i} key={t} boardId={boardId} userId={userId} columnDetails={column} filterBy={filterBy}/> )}
                                         {provided.placeholder}
                                     </div>

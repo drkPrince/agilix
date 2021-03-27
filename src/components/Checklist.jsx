@@ -13,7 +13,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 	const newTaskRef = useRef(null)
 
 	const addSubTask = (e) => {
-		if(e.key === 'Enter'){
+		if(e.key === 'Enter' && e.target.value !== ''){
 			const uid = uuidv4()
 		 	setList([...todoList, {id: uid, task: e.target.value, done: false}])
 			db.collection(`users/${userId}/boards/${boardId}/tasks`)
@@ -86,7 +86,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 					}
 				</Droppable>
 			</DragDropContext>
-			<input maxLength='30' ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-3 w-full' />	
+			<input maxLength='40' ref={newTaskRef} type="text" name='task' placeholder='Add a sub task' onKeyPress={addSubTask} className='border-b border-gray-300 outline-none my-3 w-full' />	
 		</div>
 	)
 }

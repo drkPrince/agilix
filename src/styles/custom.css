@@ -61,10 +61,10 @@ progress::-moz-progress-bar {
 }
 
 [data-reach-dialog-content] {
-	width: 75vw;
+	width: 85vw;
 	margin: 10vh auto;
 	background: white;
-	padding: 2rem;
+	padding: 1.5rem;
 	outline: none;
 	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 }

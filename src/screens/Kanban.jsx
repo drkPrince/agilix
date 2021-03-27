@@ -138,23 +138,23 @@ const Kanban = ({userId}) => {
 
                         <div className='flex flex-col h-full'>
                             <header className='bg-white z-10 text-sm sm:text-base py-5 mx-3 md:mx-6'>
-                                <div className='flex flex-wrap justify-between items-center ' >
+                                <div className='flex flex-wrap justify-between items-center'>
                                     <span className='text-xl'>
                                         <Link to='/' className='text-blue-800 hover:text-blue-500'>Boards </Link>
                                         <span className=''>/</span>
                                         <input type="text" defaultValue={boardName} className=' text-gray-800 ml-2 w-1/2 truncate' onChange={(e)=>changeBoardName(e.target.value)} />
                                     </span> 
                                     <div className='flex flex-wrap items-center sm:space-x-9' >
-                                        <div className='flex items-center text-gray-600 hover:bg-gray-300 bg-gray-200 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
-                                            <Github />
-                                            <a href='http://github.com/drkPrince/agileX' target='blank'>Github</a>
-                                        </div>
                                         <div className="flex items-center mt-2 sm:mt-0">
                                             <h3 className='text-gray-500 mr-2'>Show Priority: </h3>
                                             <div className='space-x-1 sm:space-x-1 text-gray-600 flex'>
                                                 {filters.map(f => <div key={f} className={`px-2 py-1 hover:text-gray-800 rounded-sm cursor-pointer capitalize ${filter === f ? 'bg-blue-200 text-blue-900' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
                                                 {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-800 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
                                             </div>
+                                        </div>
+                                        <div className='flex items-center text-gray-600 hover:bg-gray-300 bg-gray-200 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
+                                            <Github />
+                                            <a href='https://github.com/drkPrince/agilix' target='blank'>Github</a>
                                         </div>
                                         <div className='bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 hover:bg-blue-800 text-white rounded-full p-2 sm:p-1 fixed bottom-6 right-6 sm:static' onClick={()=>setModal(true)}>
                                             <Add />
@@ -165,20 +165,21 @@ const Kanban = ({userId}) => {
                             
                             
                             <DragDropContext onDragEnd={onDragEnd}>
-                                <Droppable droppableId='allCols' type='column' direction='horizontal' >
+                                <Droppable droppableId='allCols' type='column' direction='horizontal'>
                                     {provided => 
                                         <div {...provided.droppableProps} ref={provided.innerRef} className="grid overflow-x-auto h-full items-start pt-3 md:pt-2 mx-1 md:mx-6 auto-cols-220 md:auto-cols-270 grid-flow-col" style={{height: '90%'}}>
                                             {
                                                 initialData?.columnOrder.map((col, i) => {
-                                                    const column = initialData.columns[col]
-                                                    const tasks = column.taskIds.map(t => t)
+                                                    const column = initialData?.columns[col]
+                                                    const tasks = column.taskIds?.map(t => t)
                                                     return <Column column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
                                                 }) 
                                             }
                                             {provided.placeholder}
-                                            <div className=''>
-                                                <form onSubmit={addCol}>
-                                                    <input className='bg-transparent px-2 py-1 placeholder-blue-900 border border-blue-700 text-blue-900 rounded' type="text" name='newCol' placeholder='Add a new Column' />
+                                            <div className="w-10/12">
+                                                <form onSubmit={addCol} autoComplete='off' className='flex items-center justify-around bg-blue-50 py-0.5 border border-blue-800 rounded ring-1 focus:ring-blue-700 text-blue-500 w-full'>
+                                                    <Add />
+                                                    <input size='15' className='bg-transparent placeholder-blue-500 outline-none text-blue-800' type="text" name='newCol' placeholder='Add a new Column' />
                                                 </form>
                                             </div>
                                         </div>

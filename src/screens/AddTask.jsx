@@ -29,7 +29,7 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 
 	return (
 		<div className='px-3 py-2 md:px-12  text-sm md:text-base'>
-			<form onSubmit={addTask} className=''>
+			<form onSubmit={addTask} autoComplete='off' >
 				<h4 className='text-lg sm:text-2xl text-gray-800'>Add a New Task</h4>
 
 				<div className="mt-6 sm:mt-12">
