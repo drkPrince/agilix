@@ -11,9 +11,6 @@
 # production
 /build
 
-/src/firebase/fbConfig.js
-
-
 # misc
 .env
 .DS_Store

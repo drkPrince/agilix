@@ -3,11 +3,9 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 
-const APIKEY = process.env.REACT_APP_APIKEY
-
 const firebaseConfig = 
 {
-    apiKey: APIKEY,
+    apiKey: 'AIzaSyBh86q0PoUZCgTN9q8lBH0bZ-LtlYawyfU',
     authDomain: "kanban-42358.firebaseapp.com",
     projectId: "kanban-42358",
     storageBucket: "kanban-42358.appspot.com",
