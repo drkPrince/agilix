@@ -45,3 +45,7 @@ Agilix is an agile planner web app made with **React, Firebase, React Beautiful 
 - Implement WIP limitation.
 - Dark Mode.
 
+
+## Author
+[Prince Kumar Singh](http://twitter.com/drkPrns)
+
