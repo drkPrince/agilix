@@ -147,12 +147,12 @@ const Kanban = ({userId}) => {
                                     <div className='flex flex-wrap items-center sm:space-x-9'>
                                         <div className="flex items-center mt-2 sm:mt-0 ">
                                             <h3 className='text-gray-500 mr-2'>Show Priority: </h3>
-                                            <div className='space-x-1 text-indigo-900 flex bg-indigo-50 rounded-sm'>
+                                            <div className='space-x-1 text-blue-900 flex bg-indigo-50 rounded-sm'>
                                                 {filters.map(f => <div key={f} className={`px-3  border-black py-1 hover:bg-blue-600 hover:text-blue-50 cursor-pointer capitalize ${filter === f ? 'bg-blue-600 text-blue-50' : ''}`} onClick={() => setFilter(f==='all' ? null : f)}>{f}</div>)}
                                                 {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-700 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
                                             </div>
                                         </div>
-                                        <div className='flex items-center text-indigo-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
+                                        <div className='flex items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
                                             <Github />
                                             <a href='https://github.com/drkPrince/agilix' target='blank'>Github</a>
                                         </div>
