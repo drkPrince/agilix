@@ -4,19 +4,18 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.1",
-    "@reach/dialog": "^0.13.2",
+    "@reach/dialog": "^0.16.2",
     "@tailwindcss/typography": "^0.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@uiw/react-md-editor": "^3.6.6",
     "firebase": "^8.3.0",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^17.0.1",
-    "react-markdown": "^5.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "remark-gfm": "^1.0.0",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1"
   },
@@ -48,6 +47,6 @@
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9",
     "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }

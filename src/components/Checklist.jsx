@@ -64,7 +64,10 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 							{todoList.map((t, i) => 
 								<Draggable draggableId={t.task} index={i} key={t.id}>
 						            {(provided, snapshot) => 
-						                <div className='flex items-center mt-3 w-full justify-between pr-6' {...provided.draggableProps} ref={provided.innerRef}>
+						                <div className='flex items-center mt-3 w-full justify-between pr-6'
+										{...provided.draggableProps}
+										{...provided.dragHandleProps} 
+										ref={provided.innerRef}>
 						                    <div className='flex w-2/3'>
 						                    	<div className='mr-1' onClick={(e) => checkMark(e, t)} >
 						                    		{t.done ? < Checked/> : <Unchecked />}
@@ -74,7 +77,7 @@ const Checklist = ({todos, taskId, boardId, userId}) => {
 											<div className='text-red-400 hover:text-red-700 cursor-pointer' onClick={() => deleteSubTask(t.task)}>
 												<Cross />
 											</div>
-											<div {...provided.dragHandleProps} className='text-gray-600' >
+											<div className='text-gray-600' >
 												<Dragger />
 											</div>
 						                </div>
