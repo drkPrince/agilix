@@ -9,16 +9,18 @@ import {Link} from 'react-router-dom'
 import Column from '../components/Column'
 import Modal from '../components/Modal'
 import AddTask from '../screens/AddTask'
-import {Add, Github} from '../components/Icons'
+import {Add, Github, World} from '../components/Icons'
 
 import useKanbanData from '../hooks/useKanbanData'
 import {debounce} from '../utils'
+import Publish from './Publish'
 
 
 const Kanban = ({userId}) => {
     
     const {boardId} = useParams()
     const [modal, setModal] = useState(false)
+    const [publishModal, setPublishModal] = useState(false)
     const {initialData, setInitialData, boardName} = useKanbanData(userId, boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['high', 'medium', 'low']
@@ -133,6 +135,10 @@ const Kanban = ({userId}) => {
                     <Modal modal={modal} setModal={setModal} ariaText='Add a new task'>
                         <AddTask boardId={boardId} userId={userId} allCols={initialData.columnOrder} close={()=>setModal(false)} />
                     </Modal>
+
+                    <Modal modal={publishModal} setModal={setPublishModal} ariaText='Publish This Board'>
+                        <Publish />
+                    </Modal>
                     
                     <main className="pb-2 h-screen w-screen">
 
@@ -152,9 +158,12 @@ const Kanban = ({userId}) => {
                                                 {filter ? <div className='px-2 py-1 cursor-pointer hover:text-blue-700 rounded-sm' onClick={() => setFilter(null)}>All</div> : null}
                                             </div>
                                         </div>
-                                        <div className='flex items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden sm:flex'>
+                                        <div className='items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden md:flex'>
                                             <Github />
                                             <a href='https://github.com/drkPrince/agilix' target='blank'>Github</a>
+                                        </div>
+                                        <div className='items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden md:flex' onClick={()=>setPublishModal(true)}>
+                                            <World />
                                         </div>
                                         <div className='text-white bg-gradient-to-br from-primary via-indigo-600 to-blue-600 transform hover:scale-110 transition-all duration-300 rounded-full p-2 sm:p-1 fixed bottom-6 right-6 sm:static' onClick={()=>setModal(true)}>
                                             <Add />
@@ -196,5 +205,3 @@ const Kanban = ({userId}) => {
 }
 
 export default Kanban
-
-

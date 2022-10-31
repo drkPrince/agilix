@@ -35,7 +35,7 @@ const AddTask = ({boardId, userId, close, allCols}) =>
 				<div className="mt-6 sm:mt-12">
 					<div>
 						<label htmlFor="newTaskTitle" className='block text-gray-500'>Title:</label>
-						<input maxLength='45' required type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-lg md:text-2xl outline-none' />
+						<input maxLength={45} required type="text" name='newTaskTitle' className='bg-transparent border-b border-gray-400 w-3/4 text-lg md:text-2xl outline-none' />
 					</div>
 					
 					<div className="sm:flex my-8">

@@ -5,16 +5,14 @@ import 'firebase/auth'
 
 const APIKEY = process.env.REACT_APP_APIKEY
 
-const firebaseConfig = 
-{
-    apiKey: APIKEY,
-    authDomain: "kanban-42358.firebaseapp.com",
-    projectId: "kanban-42358",
-    storageBucket: "kanban-42358.appspot.com",
-    messagingSenderId: "300388039581",
-    appId: "1:300388039581:web:dc35b313665b4c310d8d74",
-    measurementId: "G-KCLK585LB9"
-};
+const firebaseConfig = {
+    apiKey: "AIzaSyAWXMb5HJHbgeHHQzZT1V3lBvPGqsnM6hg",
+    authDomain: "ah-tasks.firebaseapp.com",
+    projectId: "ah-tasks",
+    storageBucket: "ah-tasks.appspot.com",
+    messagingSenderId: "291163592036",
+    appId: "1:291163592036:web:7920a36a8d6303e13f1671"
+  };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
