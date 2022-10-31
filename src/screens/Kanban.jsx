@@ -137,7 +137,7 @@ const Kanban = ({userId}) => {
                     </Modal>
 
                     <Modal modal={publishModal} setModal={setPublishModal} ariaText='Publish This Board'>
-                        <Publish />
+                        <Publish boardId={boardId} userId={userId} boardName={boardName} data={initialData} close={()=>setPublishModal(false)} />
                     </Modal>
                     
                     <main className="pb-2 h-screen w-screen">

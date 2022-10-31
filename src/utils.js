@@ -135,3 +135,56 @@ export const createBoardForAnons = (userId) => {
 	        .set(t)
 	})
 }
+
+export const copyBoardsToPublicBoards = async (userId,boardId,boardName,data) =>{
+
+  		 const copyBoard = {
+			  user_id: userId,
+			  board_id: boardId,
+			  name: boardName
+		}
+
+		// set private false
+		db.collection(`users/${userId}/boards`).doc(boardId).set({private:false},{ merge: true })
+
+		// create public board
+		db.collection(`public-boards/${userId}/boards`).doc(boardId).set(copyBoard);
+
+
+		// create columns collection
+		const column_keys = Object.keys(data.columns);
+		if(column_keys.length > 0){
+
+			column_keys.forEach(key => {
+				const c = data.columns[key];
+				db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
+				.doc(key)
+				.set({title: c.title, taskIds: c.taskIds})
+			})   
+			
+			
+			// add column orders inside columns collection
+			db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
+			.doc('columnOrder')
+			.set({ id:'columnOrder', order: data.columnOrder });
+
+		}
+
+		
+
+		
+		// create tasks collection
+		const task_keys = Object.keys(data.tasks);
+		if(task_keys.length > 0){
+
+			task_keys.forEach(key => {
+				const t = data.tasks[key];
+				console.log(t)
+				db.collection(`public-boards/${userId}/boards/${boardId}/tasks`)
+					.doc(t.id)
+					.set(t)
+			})
+
+		}
+
+}
