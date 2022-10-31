@@ -8,6 +8,7 @@ import BoardList from '../components/BoardList'
 import Kanban from './Kanban'
 
 import {v4 as uuidv4} from 'uuid';
+import PublicKanban from './PublicKanban'
 
 
 const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) => 
@@ -47,6 +48,10 @@ const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) =>
 
                 <Route path='/board/:boardId'>
                     <Kanban userId={userId} />
+                </Route>
+
+                <Route path='/public-board/:boardId'>
+                    <PublicKanban userId={userId} />
                 </Route>
 
             </BrowserRouter>
