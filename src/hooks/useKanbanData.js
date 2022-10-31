@@ -6,6 +6,7 @@ const useKanban = (userId, boardId) => {
     const [columns, setColumns] = useState(null)
     const [final, setFinal] = useState(null)
     const [boardName, setBoardName] = useState('')
+    const [status, setStatus] = useState(false)
 
 
     useEffect(() => {
@@ -24,7 +25,11 @@ const useKanban = (userId, boardId) => {
         return db.collection(`users/${userId}/boards`)
             .doc(boardId)
             .get()
-            .then(d => setBoardName(d.data().name))
+            .then(d => {
+                const data = d.data();
+                setBoardName(data.name)
+                setStatus(data?.private)
+            })
     }, [userId, boardId])
 
 
@@ -58,8 +63,7 @@ const useKanban = (userId, boardId) => {
         }
     }, [tasks, columns])
 
-
-    return { initialData: final, setInitialData: setFinal, boardName }
+    return { initialData: final, setInitialData: setFinal, boardName , status }
 
 }
 

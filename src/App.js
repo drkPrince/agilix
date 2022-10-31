@@ -2,13 +2,13 @@
 
 import useAuth from './hooks/useAuth'
 import Home from './screens/Home'
-import Login from './screens/Login'
+import PublicHome from './screens/public/PublicHome'
 
 
 const App = () => 
 {
 
-    const [user, loginWithGoogle, logOut, error, anon] = useAuth()
+    const [user, loginWithGoogle, logOut, error] = useAuth()
 
     if(navigator.onLine !== true)
     {
@@ -33,7 +33,7 @@ const App = () =>
 
     //Not logged in
     if (user === false) {
-        return <Login loginWithGoogle={loginWithGoogle} signInAnon={anon}/>
+        return <PublicHome loginWithGoogle={loginWithGoogle} logOut={logOut} isAnon={user.isAnonymous} />
     }
 
     //state of loading

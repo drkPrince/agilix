@@ -5,18 +5,14 @@ import {useParams} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 
 import {Link} from 'react-router-dom'
-import Modal from '../../components/Modal'
-import AddTask from '../AddTask'
-
 import usePublicKanban from '../../hooks/public/usePublicKanbanData'
 import PublicColumn from '../../components/public/PublicColumn'
 
 
-const PublicKanban = ({userId}) => {
-    
+const PublicKanban = () => {
+
     const {boardId} = useParams()
-    const [modal, setModal] = useState(false)
-    const {initialData, boardName} = usePublicKanban(userId, boardId)
+    const {initialData, boardName} = usePublicKanban(boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['high', 'medium', 'low']
 
@@ -25,11 +21,7 @@ const PublicKanban = ({userId}) => {
 		<>
             {initialData ? 
                 (
-                <>
-                    <Modal modal={modal} setModal={setModal} ariaText='Add a new task'>
-                        <AddTask boardId={boardId} userId={userId} allCols={initialData.columnOrder} close={()=>setModal(false)} />
-                    </Modal>
-                    
+                <>  
                     <main className="pb-2 h-screen w-screen">
 
                         <div className='flex flex-col h-full'>
@@ -62,7 +54,7 @@ const PublicKanban = ({userId}) => {
                                                 initialData?.columnOrder.map((col, i) => {
                                                     const column = initialData?.columns[col]
                                                     const tasks = column.taskIds?.map(t => t)
-                                                    return <PublicColumn column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} userId={userId} filterBy={filter} index={i} />
+                                                    return <PublicColumn column={column} tasks={tasks} allData={initialData} key={column.id} boardId={boardId} filterBy={filter} index={i} />
                                                 }) 
                                             }
                                             {provided.placeholder}

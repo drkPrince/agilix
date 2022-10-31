@@ -2,35 +2,41 @@
 import {useState} from 'react'
 import { Copy } from '../components/Icons';
 import Toggle from '../components/Toggle';
-import { copyBoardsToPublicBoards } from '../utils';
+import { copyBoardToPublicBoards, removeBoardFromPublicBoards, toastMsg } from '../utils';
+import { Notyf } from 'notyf';
+const notyf = new Notyf();
 
-const Publish = ({ close, userId, boardId, boardName, data }) => 
-{
-	const [publish,setPublish] = useState(false);
+const Publish = ({ status:dbStatus, close, userId, boardId, boardName, data }) => 
+{	
+	const [tempStatus,setTempStatus] = useState(dbStatus);
 	const publicBoardUrl = window.location.href.replace('board/','public-board/');
 
 	const copyUrl = () =>{
 		const textBox = document.querySelector(".public-url");
 		textBox.select();
 		document.execCommand("copy");
+		notyf.success('Successfully copied!');
 	}
 	const publishBoard = async (status)=>{
+		setTempStatus(status);
 		 if(status){
-			 setPublish(false);
+			 removeBoardFromPublicBoards(boardId,userId);
+			 notyf.success('Unpulished this board!');
 			 return;
-			}
-			setPublish(true);
-			// copyBoardsToPublicBoards(userId, boardId, boardName, data );
+		}
+
+		copyBoardToPublicBoards(userId, boardId, boardName, data );
+		notyf.success('Successfully pulished this board!');
 	}
 
 	return (
 		<div className='publish-modal px-3 py-2 md:px-12  text-sm md:text-base'>
-			<h2>Publish this board.</h2>
+			<h2 className="my-4 text-2xl">Publish this board.</h2>
 			<div className="flex my-2">
-				<Toggle status={publishBoard} />
-				<span className="ml-2">{ publish ? 'Published' : 'Publish'}</span>
+				<Toggle dbStatus={dbStatus} emitToggle={publishBoard} />
+				<span className="ml-2">{ !tempStatus ? 'Published' : 'Publish'}</span>
 			</div>
-			{ publish ? ( <div className="flex">
+			{ !tempStatus ? ( <div className="flex">
 			 <input className="public-url p-2 border" style={{maxWidth:'500px',width:'100%'}} type="text" defaultValue={publicBoardUrl} />
 			<button onClick={copyUrl} className="p-2 border-none outline-none"><Copy /></button>
 			</div> ) : '' }

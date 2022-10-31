@@ -2,7 +2,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import PublicTask from './PublicTask'
 
 
-const PublicColumn = ({ column, tasks, allData, boardId, userId, filterBy, index }) => {
+const PublicColumn = ({ column, tasks, allData, boardId, filterBy, index }) => {
 
     return (
         <>
@@ -16,7 +16,7 @@ const PublicColumn = ({ column, tasks, allData, boardId, userId, filterBy, index
                             <Droppable droppableId={column.id} type='task'>
                                 {(provided, snapshot) => 
                                     <div {...provided.droppableProps} ref={provided.innerRef} className={`shadow-sm h-full py-4 px-2 ${snapshot.isDraggingOver ? 'bg-gradient-to-br from-green-400 via-green-200 to-green-100' : ''}`}>
-                                        {tasks.map((t, i) =>  <PublicTask allData={allData} id={t} index={i} key={t} boardId={boardId} userId={userId} columnDetails={column} filterBy={filterBy}/> )}
+                                        {tasks.map((t, i) =>  <PublicTask allData={allData} id={t} index={i} key={t} boardId={boardId} columnDetails={column} filterBy={filterBy}/> )}
                                         {provided.placeholder}
                                     </div>
                                 }

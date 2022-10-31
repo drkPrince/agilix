@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
+import 'notyf/notyf.min.css';
 import './styles/custom.css';
 import App from './App';
 

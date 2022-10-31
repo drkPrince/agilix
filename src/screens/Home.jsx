@@ -1,6 +1,6 @@
 
 import {db} from '../firebase/fbConfig'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import useBoards from '../hooks/useBoards'
 
 import BoardList from '../components/BoardList'
@@ -9,9 +9,10 @@ import Kanban from './Kanban'
 
 import {v4 as uuidv4} from 'uuid';
 import PublicKanban from './public/PublicKanban'
+import NotFound from './NotFound'
 
 
-const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) => 
+const Home = ({logOut, userId, name}) => 
 {
 
     const boards = useBoards(userId)    
@@ -42,17 +43,23 @@ const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) =>
 
     return boards !== null ? (
          <BrowserRouter>
-                <Route exact path='/'>
-                    <BoardList deleteBoard={deleteBoard} logOut={logOut} boards={boards} addNewBoard={addNewBoard} name={name}/>
-                </Route>
+               <Routes>
 
-                <Route path='/board/:boardId'>
-                    <Kanban userId={userId} />
-                </Route>
+                <Route path='/' element={
+                        <BoardList deleteBoard={deleteBoard} logOut={logOut} boards={boards} addNewBoard={addNewBoard} name={name}/>
+                    }></Route>
 
-                <Route path='/public-board/:boardId'>
-                    <PublicKanban userId={userId} />
-                </Route>
+                    <Route path='/board/:boardId' element={
+                        <Kanban userId={userId} />
+                    }></Route>
+
+                    <Route path='/public-board/:boardId' element={
+                            <PublicKanban />
+                    }></Route>
+                        
+                    <Route path="*" element={<NotFound />} />
+
+               </Routes>
 
             </BrowserRouter>
 

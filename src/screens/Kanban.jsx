@@ -1,6 +1,6 @@
 
 
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 
@@ -21,7 +21,7 @@ const Kanban = ({userId}) => {
     const {boardId} = useParams()
     const [modal, setModal] = useState(false)
     const [publishModal, setPublishModal] = useState(false)
-    const {initialData, setInitialData, boardName} = useKanbanData(userId, boardId)
+    const {initialData, setInitialData, boardName, status} = useKanbanData(userId, boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['high', 'medium', 'low']
 
@@ -126,7 +126,6 @@ const Kanban = ({userId}) => {
             .update({name: ev})
     }, 7000);
 
-
 	return (
 		<>
             {initialData ? 
@@ -137,7 +136,7 @@ const Kanban = ({userId}) => {
                     </Modal>
 
                     <Modal modal={publishModal} setModal={setPublishModal} ariaText='Publish This Board'>
-                        <Publish boardId={boardId} userId={userId} boardName={boardName} data={initialData} close={()=>setPublishModal(false)} />
+                        <Publish boardId={boardId} userId={userId} boardName={boardName} status={status} data={initialData} close={()=>setPublishModal(false)} />
                     </Modal>
                     
                     <main className="pb-2 h-screen w-screen">

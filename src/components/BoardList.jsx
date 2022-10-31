@@ -51,7 +51,7 @@ const BoardList = ({ logOut, boards, addNewBoard, deleteBoard, name }) =>
             <div className='flex flex-col my-2'>
                 <div className='flex justify-between'>
                     <h1 className='text-xl sm:text-3xl bg-gradient-to-r from-indigo-500 to-primary bg-clip-text text-transparent'>Welcome, {name ? name.split(' ')[0] : 'Stranger'}</h1>
-                    <button className='px-3 border border-red-800 hover:bg-red-700 hover:text-white text-red-800 px-2 py-1 rounded-sm text-sm sm:text-base' onClick={logOut}>Log out</button>
+                    <button className='border border-red-800 hover:bg-red-700 hover:text-white text-red-800 px-2 py-1 rounded-sm text-sm sm:text-base' onClick={logOut}>Log out</button>
                 </div>
                 <div className="my-12">
                     <h1 className='text-xl text-blue-900'>Your Boards</h1>

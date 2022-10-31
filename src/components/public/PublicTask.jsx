@@ -9,7 +9,7 @@ import {useState} from 'react'
 import PublicTaskDetails from '../../screens/public/PublicTaskDetails'
 
 
-const PublicTask = ({ allData, id, index, boardId, userId, columnDetails, filterBy }) => {
+const PublicTask = ({ allData, id, index, boardId, columnDetails, filterBy }) => {
 
 
 	const [modal, setModal] = useState(false)
@@ -28,7 +28,7 @@ const PublicTask = ({ allData, id, index, boardId, userId, columnDetails, filter
         <div className={`${matched ? '' : 'opacity-10'}`}>
 
         	<Modal modal={modal} setModal={setModal} ariaText='Task Details'>
-        		<PublicTaskDetails taskDetails={theTask} closeModal={()=>setModal(false)} boardId={boardId} userId={userId} columnDetails={columnDetails} />
+        		<PublicTaskDetails taskDetails={theTask} closeModal={()=>setModal(false)} boardId={boardId} columnDetails={columnDetails} />
         	</Modal> 
 
 	        <Draggable draggableId={id} index={index}>

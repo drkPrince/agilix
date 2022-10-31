@@ -6,7 +6,7 @@ import gfm from 'remark-gfm'
 import PublicChecklist from '../../components/public/PublicChecklist'
 
 
-const PublicTaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) => {
+const PublicTaskDetails = ({taskDetails, boardId, columnDetails, closeModal}) => {
 
 	const [updatedDesc] = useState(taskDetails.description)
 
@@ -28,7 +28,7 @@ const PublicTaskDetails = ({taskDetails, boardId, userId, columnDetails, closeMo
 
 						<div>
 							<label className='text-gray-500 uppercase tracking-wide text-xs sm:text-sm  block'>Checklist:</label>
-							<PublicChecklist todos={taskDetails.todos} taskId={taskDetails.id} boardId={boardId} userId={userId} />
+							<PublicChecklist todos={taskDetails.todos} taskId={taskDetails.id} boardId={boardId} />
 						</div>
 						
 						<div className="mt-12 w-full">
