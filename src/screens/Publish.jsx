@@ -2,14 +2,24 @@
 import {useState} from 'react'
 import {db, firebase} from '../firebase/fbConfig'
 import {v4 as uuidv4} from 'uuid';
+import Toggle from '../components/Toggle';
 
 const Publish = ({boardId, userId, close, allCols}) => 
 {
+	const [publish,setPublish] = useState(true);
+
+	const setStatus = (status)=>{
+		setPublish(status)
+	}
 
 	return (
-		<div className='px-3 py-2 md:px-12  text-sm md:text-base'>
-			<h2>Publish Board!</h2>
-			<p>I understand publishing this board to public can cause security issue.</p>
+		<div className='publish-modal px-3 py-2 md:px-12  text-sm md:text-base'>
+			<h2>Publish this board.</h2>
+			<div className="flex my-2">
+				<Toggle status={setStatus} />
+				<span className="ml-2">{publish ? 'Publish' : 'Published'}</span>
+			</div>
+
 		</div>
 	)
 }

@@ -164,6 +164,7 @@ const Kanban = ({userId}) => {
                                         </div>
                                         <div className='items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden md:flex' onClick={()=>setPublishModal(true)}>
                                             <World />
+                                             Share
                                         </div>
                                         <div className='text-white bg-gradient-to-br from-primary via-indigo-600 to-blue-600 transform hover:scale-110 transition-all duration-300 rounded-full p-2 sm:p-1 fixed bottom-6 right-6 sm:static' onClick={()=>setModal(true)}>
                                             <Add />
