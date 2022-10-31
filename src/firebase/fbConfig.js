@@ -2,9 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
-
-const APIKEY = process.env.REACT_APP_APIKEY
-
 const firebaseConfig = {
     apiKey: "AIzaSyAWXMb5HJHbgeHHQzZT1V3lBvPGqsnM6hg",
     authDomain: "ah-tasks.firebaseapp.com",

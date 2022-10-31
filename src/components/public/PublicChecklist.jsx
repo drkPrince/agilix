@@ -1,17 +1,13 @@
 
 
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
-import {Checked, Unchecked, Cross, Dragger} from './Icons'
-import {firebase, db} from '../firebase/fbConfig'
-import {useState, useRef} from 'react'
-import {v4 as uuidv4} from 'uuid';
+import {Checked, Unchecked} from '../Icons'
+import {useState} from 'react'
 
 
-const PublicChecklist = ({todos, taskId, boardId, userId}) => {
+const PublicChecklist = ({todos}) => {
 
-	const [todoList, setList] = useState(todos)
-	const newTaskRef = useRef(null)
-
+	const [todoList] = useState(todos)
 
 	return (
 		<div>

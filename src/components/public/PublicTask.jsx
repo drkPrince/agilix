@@ -1,12 +1,12 @@
 
 import { Draggable } from 'react-beautiful-dnd'
-import ChecklistProgress from './ChecklistProgress'
-import { extractPriority } from '../utils'
+import ChecklistProgress from './../ChecklistProgress'
+import { extractPriority } from '../../utils'
 
-import Modal from './Modal'
-import {Description} from './Icons'
+import Modal from './../Modal'
+import {Description} from './../Icons'
 import {useState} from 'react'
-import PublicTaskDetails from '../screens/PublicTaskDetails'
+import PublicTaskDetails from '../../screens/public/PublicTaskDetails'
 
 
 const PublicTask = ({ allData, id, index, boardId, userId, columnDetails, filterBy }) => {

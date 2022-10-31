@@ -8,7 +8,7 @@ import BoardList from '../components/BoardList'
 import Kanban from './Kanban'
 
 import {v4 as uuidv4} from 'uuid';
-import PublicKanban from './PublicKanban'
+import PublicKanban from './public/PublicKanban'
 
 
 const Home = ({logOut, userId, loginWithGoogle, name, isAnon}) => 

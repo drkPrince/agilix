@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { db } from '../firebase/fbConfig'
+import { db } from '../../firebase/fbConfig'
 
 const usePublicKanban = (userId, boardId) => {
     const [tasks, setTasks] = useState(null)
