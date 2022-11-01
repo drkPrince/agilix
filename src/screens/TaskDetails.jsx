@@ -57,7 +57,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 
 				<div >
 					<label className='text-gray-500 uppercase tracking-wide text-xs sm:text-sm  block' htmlFor="title">Title:</label>
-					<input maxLength='45' type="text" name='title' className='text-xl md:text-2xl block w-full inline-block outline-none' defaultValue={taskDetails.title} onChange={(e)=>setTitle(e.target.value)} />
+					<input maxLength='45' type="text" name='title' className='text-xl md:text-2xl w-full inline-block outline-none' defaultValue={taskDetails.title} onChange={(e)=>setTitle(e.target.value)} />
 				</div>
 
 
@@ -83,7 +83,7 @@ const TaskDetails = ({taskDetails, boardId, userId, columnDetails, closeModal}) 
 							
 								<div className='mt-6'>
 									<label className='text-gray-500 uppercase tracking-wide text-xs sm:text-sm block' htmlFor="desc" >Live Preview:</label>
-									<ReactMarkdown plugins={[gfm]} className='border border-gray-200 px-2 py-3 overflow-y-auto leading-normal  prose text-sm sm:text-base leading-tight text-gray-900'>{updatedDesc}</ReactMarkdown>
+									<ReactMarkdown plugins={[gfm]} className='border border-gray-200 px-2 py-3 overflow-y-auto prose text-sm sm:text-base leading-tight text-gray-900'>{updatedDesc}</ReactMarkdown>
 								</div>
 							</div>
 

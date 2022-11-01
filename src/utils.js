@@ -135,63 +135,124 @@ export const createBoardForAnons = (userId) => {
 	})
 }
 
-export const removeBoardFromPublicBoards = async (boardId,userId) =>{
+export const removeBoardFromPublicBoards = async (boardId,userId,data) =>{
 
-	// set private true
-	db.collection(`users/${userId}/boards`).doc(boardId).set({private:true},{ merge: true })
-	db.collection(`public-boards`)
-            .doc(boardId)
-            .delete()
+	return new Promise((resolve,reject)=>{
+		try{
+				// set private true
+				db.collection(`users/${userId}/boards`).doc(boardId).set({private:true},{ merge: true })
+					
+				// delete columns collection
+				const column_keys = Object.keys(data.columns);
+				if(column_keys.length > 0){
+
+					column_keys.forEach(key => {
+						db.collection(`public-boards/${boardId}/columns`)
+						.doc(key)
+						.delete()
+					})   
+					
+					
+					// delete column orders inside columns collection
+					db.collection(`public-boards/${boardId}/columns`)
+					.doc('columnOrder')
+					.delete();
+
+				}
+
+				// delete tasks collection
+				const task_keys = Object.keys(data.tasks);
+				if(task_keys.length > 0){
+
+					task_keys.forEach(key => {
+						const t = data.tasks[key];
+						db.collection(`public-boards/${boardId}/tasks`)
+							.doc(t.id)
+							.delete()
+					})
+
+				}
+
+				// Remove board
+				db.collection(`public-boards`).doc(boardId).delete();
+
+				resolve('removed')
+		}catch(e){
+			reject(e.message())
+		}
+
+	})
+		
 }
 
 export const copyBoardToPublicBoards = async (userId,boardId,boardName,data) =>{
 
-    const copyBoard = {
-       user_id: userId,
-       board_id: boardId,
-       name: boardName
- }
+    return new Promise((resolve,reject)=>{
+		try{
+			const copyBoard = {
+				user_id: userId,
+				board_id: boardId,
+				name: boardName
+			  }
+		 
+			 // set private false
+			 db.collection(`users/${userId}/boards`).doc(boardId).set({private:false},{ merge: true })
+		 
+			 // create public board
+			 db.collection('public-boards').doc(boardId).set(copyBoard);
+		 
+		 
+			 // create columns collection
+			 const column_keys = Object.keys(data.columns);
+			 if(column_keys.length > 0){
+		 
+				 column_keys.forEach(key => {
+					 const c = data.columns[key];
+					 db.collection(`public-boards/${boardId}/columns`)
+					 .doc(key)
+					 .set({title: c.title, taskIds: c.taskIds})
+				 })   
+				 
+				 
+				 // add column orders inside columns collection
+				 db.collection(`public-boards/${boardId}/columns`)
+				 .doc('columnOrder')
+				 .set({ id:'columnOrder', order: data.columnOrder });
+		 
+			 }
+		 
+			 
+		 
+			 
+			 // create tasks collection
+			 const task_keys = Object.keys(data.tasks);
+			 if(task_keys.length > 0){
+		 
+				 task_keys.forEach(key => {
+					 const t = data.tasks[key];
+					 db.collection(`public-boards/${boardId}/tasks`)
+						 .doc(t.id)
+						 .set(t)
+				 })
+		 
+			 }
+			 resolve('published')
+		}catch(e){
+			reject(e.message())
+		}
+	})
 
- // set private false
- db.collection(`users/${userId}/boards`).doc(boardId).set({private:false},{ merge: true })
+}
 
- // create public board
- db.collection('public-boards').doc(boardId).set(copyBoard);
-
-
- // create columns collection
- const column_keys = Object.keys(data.columns);
- if(column_keys.length > 0){
-
-     column_keys.forEach(key => {
-         const c = data.columns[key];
-         db.collection(`public-boards/${boardId}/columns`)
-         .doc(key)
-         .set({title: c.title, taskIds: c.taskIds})
-     })   
-     
-     
-     // add column orders inside columns collection
-     db.collection(`public-boards/${boardId}/columns`)
-     .doc('columnOrder')
-     .set({ id:'columnOrder', order: data.columnOrder });
-
- }
-
- 
-
- 
- // create tasks collection
- const task_keys = Object.keys(data.tasks);
- if(task_keys.length > 0){
-
-     task_keys.forEach(key => {
-         const t = data.tasks[key];
-         db.collection(`public-boards/${boardId}/tasks`)
-             .doc(t.id)
-             .set(t)
-     })
-
- }
-
+export const isPrivateBoard = (boardId) =>{
+	return new Promise((resolve,reject)=>{
+		// set private true
+		db.collection('public-boards').doc(boardId).get()
+		.then(doc=>{
+			if(doc.data()){
+				resolve('no')
+			}
+		})
+	})
+					
 }

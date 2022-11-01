@@ -2,7 +2,7 @@
 import {useState} from 'react'
 import { Copy } from '../components/Icons';
 import Toggle from '../components/Toggle';
-import { copyBoardToPublicBoards, removeBoardFromPublicBoards, toastMsg } from '../utils';
+import { copyBoardToPublicBoards, removeBoardFromPublicBoards } from '../utils';
 import { Notyf } from 'notyf';
 const notyf = new Notyf();
 
@@ -18,15 +18,22 @@ const Publish = ({ status:dbStatus, close, userId, boardId, boardName, data }) =
 		notyf.success('Successfully copied!');
 	}
 	const publishBoard = async (status)=>{
-		setTempStatus(status);
+		
+		 setTempStatus(status);
 		 if(status){
-			 removeBoardFromPublicBoards(boardId,userId);
-			 notyf.success('Unpulished this board!');
+			 removeBoardFromPublicBoards(boardId,userId, data).then(msg=>{
+				if(msg === 'removed'){
+					notyf.success('Unpulished this board!');
+				 }
+			 })
 			 return;
 		}
 
-		copyBoardToPublicBoards(userId, boardId, boardName, data );
-		notyf.success('Successfully pulished this board!');
+		copyBoardToPublicBoards(userId, boardId, boardName, data ).then(msg=>{
+			if(msg === 'published'){
+				notyf.success('Successfully pulished this board!');
+			}
+		})
 	}
 
 	return (
@@ -37,10 +44,14 @@ const Publish = ({ status:dbStatus, close, userId, boardId, boardName, data }) =
 				<span className="ml-2">{ !tempStatus ? 'Published' : 'Publish'}</span>
 			</div>
 			{ !tempStatus ? ( <div className="flex">
-			 <input className="public-url p-2 border" style={{maxWidth:'500px',width:'100%'}} type="text" defaultValue={publicBoardUrl} />
-			<button onClick={copyUrl} className="p-2 border-none outline-none"><Copy /></button>
+			 	<input className="public-url p-2 border" style={{maxWidth:'500px',width:'100%'}} type="text" defaultValue={publicBoardUrl} />
+				<button onClick={copyUrl} className="p-2 border-none outline-none"><Copy /></button>
 			</div> ) : '' }
 
+
+			{
+				!tempStatus ? <div className="flex"><button onClick={()=>publishBoard(false)} className="mt-4 bg-green-700 text-white px-4 py-1 rounded-sm transform hover:-translate-y-1 transition-transform duration-300 cursor-hover">Sync Changes</button></div> : ''
+			}
 		</div>
 	)
 }

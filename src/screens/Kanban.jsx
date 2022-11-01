@@ -1,6 +1,6 @@
 
 
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 
@@ -161,7 +161,7 @@ const Kanban = ({userId}) => {
                                             <Github />
                                             <a href='https://github.com/drkPrince/agilix' target='blank'>Github</a>
                                         </div>
-                                        <div className='items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden md:flex' onClick={()=>setPublishModal(true)}>
+                                        <div className='items-center text-blue-900 hover:bg-blue-600 hover:text-blue-50 bg-indigo-50 rounded-sm px-2 py-1 mr-3 hidden md:flex cursor-pointer' onClick={()=>setPublishModal(true)}>
                                             <World />
                                              Share
                                         </div>
