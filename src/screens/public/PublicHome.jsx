@@ -15,7 +15,7 @@ const PublicHome = ({loginWithGoogle, isAnon}) =>
                         <Login loginWithGoogle={loginWithGoogle} signInAnon={isAnon}/>
                     }></Route>
 
-                    <Route path='/public-board/:boardId' element={
+                    <Route path='/b/:userId/:boardId' element={
                         <PublicKanban />
                     }></Route>
                     

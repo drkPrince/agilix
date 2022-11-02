@@ -12,8 +12,8 @@ import { Home, Github } from '../../components/Icons'
 
 const PublicKanban = () => {
 
-    const {boardId} = useParams()
-    const {initialData, boardName} = usePublicKanban(boardId)
+    const {userId,boardId} = useParams()
+    const {initialData, boardName} = usePublicKanban(userId,boardId)
     const [filter, setFilter] = useState(null)
     const filters = ['high', 'medium', 'low'];
    

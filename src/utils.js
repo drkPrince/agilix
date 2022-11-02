@@ -147,14 +147,14 @@ export const removeBoardFromPublicBoards = async (boardId,userId,data) =>{
 				if(column_keys.length > 0){
 
 					column_keys.forEach(key => {
-						db.collection(`public-boards/${boardId}/columns`)
+						db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
 						.doc(key)
 						.delete()
 					})   
 					
 					
 					// delete column orders inside columns collection
-					db.collection(`public-boards/${boardId}/columns`)
+					db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
 					.doc('columnOrder')
 					.delete();
 
@@ -166,7 +166,7 @@ export const removeBoardFromPublicBoards = async (boardId,userId,data) =>{
 
 					task_keys.forEach(key => {
 						const t = data.tasks[key];
-						db.collection(`public-boards/${boardId}/tasks`)
+						db.collection(`public-boards/${userId}/boards/${boardId}/tasks`)
 							.doc(t.id)
 							.delete()
 					})
@@ -174,7 +174,7 @@ export const removeBoardFromPublicBoards = async (boardId,userId,data) =>{
 				}
 
 				// Remove board
-				db.collection(`public-boards`).doc(boardId).delete();
+				db.collection(`public-boards/${userId}/boards`).doc(boardId).delete();
 
 				resolve('removed')
 		}catch(e){
@@ -199,7 +199,7 @@ export const copyBoardToPublicBoards = async (userId,boardId,boardName,data) =>{
 			 db.collection(`users/${userId}/boards`).doc(boardId).set({private:false},{ merge: true })
 		 
 			 // create public board
-			 db.collection('public-boards').doc(boardId).set(copyBoard);
+			 db.collection(`public-boards/${userId}/boards`).doc(boardId).set(copyBoard);
 		 
 		 
 			 // create columns collection
@@ -208,14 +208,14 @@ export const copyBoardToPublicBoards = async (userId,boardId,boardName,data) =>{
 		 
 				 column_keys.forEach(key => {
 					 const c = data.columns[key];
-					 db.collection(`public-boards/${boardId}/columns`)
+					 db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
 					 .doc(key)
 					 .set({title: c.title, taskIds: c.taskIds})
 				 })   
 				 
 				 
 				 // add column orders inside columns collection
-				 db.collection(`public-boards/${boardId}/columns`)
+				 db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
 				 .doc('columnOrder')
 				 .set({ id:'columnOrder', order: data.columnOrder });
 		 
@@ -230,29 +230,17 @@ export const copyBoardToPublicBoards = async (userId,boardId,boardName,data) =>{
 		 
 				 task_keys.forEach(key => {
 					 const t = data.tasks[key];
-					 db.collection(`public-boards/${boardId}/tasks`)
+					 db.collection(`public-boards/${userId}/boards/${boardId}/tasks`)
 						 .doc(t.id)
 						 .set(t)
 				 })
 		 
-			 }
-			 resolve('published')
+			}
+
+			resolve('published')
 		}catch(e){
-			reject(e.message())
+			reject(e)
 		}
 	})
 
-}
-
-export const isPrivateBoard = (boardId) =>{
-	return new Promise((resolve,reject)=>{
-		// set private true
-		db.collection('public-boards').doc(boardId).get()
-		.then(doc=>{
-			if(doc.data()){
-				resolve('no')
-			}
-		})
-	})
-					
 }

@@ -9,7 +9,7 @@ const notyf = new Notyf();
 const Publish = ({ status:dbStatus, close, userId, boardId, boardName, data }) => 
 {	
 	const [tempStatus,setTempStatus] = useState(dbStatus);
-	const publicBoardUrl = window.location.href.replace('board/','public-board/');
+	const publicBoardUrl = window.location.href.replace('board/',`b/${userId}/`);
 
 	const copyUrl = () =>{
 		const textBox = document.querySelector(".public-url");

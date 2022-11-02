@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { db } from '../../firebase/fbConfig'
 
-const usePublicKanban = (boardId) => {
+const usePublicKanban = (userId,boardId) => {
     const [tasks, setTasks] = useState(null)
     const [columns, setColumns] = useState(null)
     const [final, setFinal] = useState(null)
@@ -9,7 +9,7 @@ const usePublicKanban = (boardId) => {
 
 
     useEffect(() => {
-        return db.collection(`public-boards/${boardId}/tasks`)
+        return db.collection(`public-boards/${userId}/boards/${boardId}/tasks`)
             .onSnapshot(snap => {
                 const documents = []
                 snap.forEach(d => {
@@ -17,19 +17,19 @@ const usePublicKanban = (boardId) => {
                 })
                 setTasks(documents)
             })
-    }, [boardId])
+    }, [userId,boardId])
 
 
     useEffect(() => {
-        return db.collection(`public-boards`)
+        return db.collection(`public-boards/${userId}/boards`)
             .doc(boardId)
             .get()
             .then(d => setBoardName(d.data().name))
-    }, [boardId])
+    }, [userId,boardId])
 
 
     useEffect(() => {
-        return db.collection(`public-boards/${boardId}/columns`)
+        return db.collection(`public-boards/${userId}/boards/${boardId}/columns`)
             .onSnapshot(snap => {
                 const documents = []
                 snap.forEach(d => {
@@ -37,7 +37,7 @@ const usePublicKanban = (boardId) => {
                 })
                 setColumns(documents)
             })
-    }, [boardId])
+    }, [userId,boardId])
 
 
     useEffect(() => {
