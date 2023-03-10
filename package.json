@@ -1,53 +1,25 @@
 {
-  "name": "agility",
-  "version": "0.1.0",
+  "name": "agilix",
   "private": true,
-  "dependencies": {
-    "@craco/craco": "^6.1.1",
-    "@reach/dialog": "^0.13.2",
-    "@tailwindcss/typography": "^0.4.0",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "firebase": "^8.3.0",
-    "react": "^17.0.1",
-    "react-beautiful-dnd": "^13.0.0",
-    "react-dom": "^17.0.1",
-    "react-markdown": "^5.0.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "remark-gfm": "^1.0.0",
-    "uuid": "^8.3.2",
-    "web-vitals": "^1.0.1"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "firebase": "^9.17.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-router-dom": "^6.9.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.3",
-    "autoprefixer": "^9",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
   }
 }
